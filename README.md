@@ -1,2 +1,2 @@
-# kongyang
-kong + yang for pjt
+# kong-yang
+(kong + yang) for pjt
