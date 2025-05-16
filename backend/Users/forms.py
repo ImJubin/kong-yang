@@ -6,6 +6,12 @@ from django import forms
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
+        fields = (
+            'first_name',
+            'last_name',
+            'email',
+            'phone_number',
+        )
 
 
 class CustomUserChangeForm(UserChangeForm):
@@ -15,4 +21,5 @@ class CustomUserChangeForm(UserChangeForm):
             'first_name',
             'last_name',
             'email',
+            'phone_number',
         )
