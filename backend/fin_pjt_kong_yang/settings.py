@@ -33,6 +33,8 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'Users',
     'rest_framework',
+    # 로그인 유지를 위한 token
+    'rest_framework.authtoken',
     # CORS
     'corsheaders',
     'django.contrib.admin',

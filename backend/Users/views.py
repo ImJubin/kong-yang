@@ -6,6 +6,8 @@ from django.shortcuts import redirect, render
 
 from .forms import CustomUserChangeForm, CustomUserCreationForm
 from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -19,7 +21,7 @@ User = get_user_model()
 
 ################################## 회원가입 ##################################
 
-api_view(['POST'])
+@api_view(['POST'])
 def signup(request):
     serializer = UserSignupSerializer(data=request.data)
     if serializer.is_valid():
@@ -31,7 +33,7 @@ def signup(request):
                     "username": user.username,
             },
         }, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=400)
+    return Response(serializer.errors, status=status.HTTP_204_NO_CONTENT)
     
 
 
@@ -73,11 +75,34 @@ def logout(request):
 #     return redirect('articles:index')
 
 
+################################## 회원 탈퇴 ##################################
 
-def delete(request):
-    request.user.delete()
-    return redirect('articles:index')
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+# 비활성화 방식의 탈퇴
+def delete_user(request):
+    # 회원 탈퇴시 비밀번호 요구하기
+    password = request.data.get('password')
+    if not password:
+        return Response({"detail": "비밀번호를 입력하세요."}, status=status.HTTP_400_BAD_REQUEST)
 
+    if not request.user.check_password(password):
+        return Response({"detail": "비밀번호가 틀렸습니다."}, status=status.HTTP_400_BAD_REQUEST)
+
+    request.user.is_active = False
+    request.user.save()
+
+    # 토큰 삭제
+    Token.objects.filter(user=request.user).delete()
+    return Response({"detail": "회원 탈퇴가 완료되었습니다."}, status=status.HTTP_204_NO_CONTENT)
+
+
+
+# def delete(request):
+#     request.user.delete()
+#     return redirect('articles:index')
+
+###################################
 
 def update(request):
     if request.method == 'POST':
