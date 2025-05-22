@@ -21,10 +21,6 @@ class UserSignupSerializer(serializers.ModelSerializer):
         required=True,
         validators=[UniqueValidator(queryset=User.objects.all())],
     )
-    
-    # password = serializers.CharField(write_only=True)
-    # password2 = serializers.CharField(write_only=True)
-
     password = serializers.CharField(
         write_only=True,
         required=True,
@@ -37,7 +33,7 @@ class UserSignupSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'phone_number', 'password', 'password2')
+        fields = ('username', 'email', 'password', 'password2', 'first_name', 'last_name','phone_number')
 
     # password 1과 2가 둘이 일치하는지 확인
     def validate(self, data):
@@ -52,7 +48,10 @@ class UserSignupSerializer(serializers.ModelSerializer):
         password = validated_data.pop('password')
         user = User.objects.create_user(
             username = validated_data['username'],
-            email = validated_data['email']
+            email = validated_data['email'],
+            first_name = validated_data['first_name'],
+            last_name = validated_data['last_name'],
+            phone_number = validated_data['phone_number'],
         )
         user.set_password(password)
         user.save()
@@ -62,19 +61,19 @@ class UserSignupSerializer(serializers.ModelSerializer):
     
 ############# 로그인 #############
 
-class LoginSerializer(serializers.Serializer):
-    # 프론트에서 보낸 Json의 username, password, model이 아니어서 meta도 없고 필요없음
-    username = serializers.CharField()
-    password = serializers.CharField(write_only = True)
+# class LoginSerializer(serializers.Serializer):
+#     # 프론트에서 보낸 Json의 username, password, model이 아니어서 meta도 없고 필요없음
+#     username = serializers.CharField()
+#     password = serializers.CharField(write_only = True)
 
-    def validate(self, data):
-        user = authenticate(
-            username=data.get("username"),
-            password=data.get("password")
-        )
-        if not user:
-            raise serializers.ValidationError({
-                "loginError": "아이디 또는 비밀번호가 일치하지 않습니다."
-            })
-        data["user"] = user
-        return data
+#     def validate(self, data):
+#         user = authenticate(
+#             username=data.get("username"),
+#             password=data.get("password")
+#         )
+#         if not user:
+#             raise serializers.ValidationError({
+#                 "loginError": "아이디 또는 비밀번호가 일치하지 않습니다."
+#             })
+#         data["user"] = user
+#         return data

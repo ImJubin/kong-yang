@@ -31,19 +31,35 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # apps
     'Users',
+    'fin_products',
+    # rest
     'rest_framework',
     # 로그인 유지를 위한 token
     'rest_framework.authtoken',
+
     # CORS
     'corsheaders',
+
+    # auth
+    'dj_rest_auth',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
+
+    #django 기본
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
 ]
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -55,6 +71,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # CORS
     'corsheaders.middleware.CorsMiddleware',
+    # auth
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'fin_pjt_kong_yang.urls'
@@ -132,3 +150,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #커스텀 유저
 AUTH_USER_MODEL = 'Users.User'
+
+# 기본 인증 방식을 정의
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES':[
+        'rest_framework.authentication.BasicAuthentication',
+        # 인증 정책을 토큰 방식으로 설정
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
+
+from decouple import config
+
+FSS_API_KEY = config("FSS_API_KEY")

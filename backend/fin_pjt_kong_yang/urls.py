@@ -19,5 +19,10 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # 회원가입 관련 url
     path('users/',include('Users.urls')),
+    # path('users/signup/', include('dj_rest_auth.registration.urls'))
+    
+    # 회원정보 관련 url
+    path('users/', include('dj_rest_auth.urls')),
 ]
