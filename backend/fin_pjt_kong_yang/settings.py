@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # apps
-    'Users',
+    'users',
     'fin_products',
     # rest
     'rest_framework',
@@ -62,15 +62,16 @@ INSTALLED_APPS = [
 SITE_ID = 1
 
 MIDDLEWARE = [
+    # CORS
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # CORS
-    'corsheaders.middleware.CorsMiddleware',
     # auth
     'allauth.account.middleware.AccountMiddleware',
 ]
@@ -149,7 +150,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #커스텀 유저
-AUTH_USER_MODEL = 'Users.User'
+AUTH_USER_MODEL = 'users.User'
 
 # 기본 인증 방식을 정의
 REST_FRAMEWORK = {
@@ -163,3 +164,13 @@ REST_FRAMEWORK = {
 from decouple import config
 
 FSS_API_KEY = config("FSS_API_KEY")
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+]
+
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'users.serializers.CustomUserDetailsSerializer',
+}
+print("🟢 settings.py loaded!")
+print("🟢 REST_AUTH_SERIALIZERS =", REST_AUTH_SERIALIZERS)

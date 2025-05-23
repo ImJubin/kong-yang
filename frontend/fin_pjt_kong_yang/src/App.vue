@@ -1,85 +1,41 @@
 <script setup>
+import NavBar from '@/components/NavBar.vue'
+
+
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+// import HelloWorld from './components/HelloWorld.vue'
+import { onMounted } from 'vue'
+import { useUserStore } from '@/stores/user'
+const userStore = useUserStore()
+onMounted(() => {
+  const token = localStorage.getItem('token')
+  if (token) {
+    userStore.fetchUserInfo()
+    console.log('✅ 로그인된 토큰 있음, 유저 정보 요청함', token)
+  }else {
+    console.log('❌ 토큰 없음')
+  }
+})
+
+
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
+  <nav>
+    <!-- <RouterLink to="/">홈</RouterLink> | -->
+    
+    <RouterLink :to="{ name : 'Home'}" class = "nav">홈</RouterLink>
+    <RouterLink :to="{ name : 'SignUp'}" class = "nav">회원가입</RouterLink>
+    <RouterLink :to="{ name : 'Login'}" class = "nav">로그인</RouterLink>
+    <RouterLink :to="{ name : 'MyPage'}" class = "nav">마이페이지</RouterLink>
+    <RouterLink :to="{ name: 'UpdateMyData' }" class="nav">회원정보 수정</RouterLink> <!-- ✅ 추가 -->
+  </nav>
+   <NavBar />
   <RouterView />
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+.nav {
+  text-decoration: none;
 }
 </style>

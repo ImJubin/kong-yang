@@ -1,18 +1,19 @@
 from rest_framework import serializers
 from .models import User, Account
-from django.contrib.auth import get_user_model
+# from django.contrib.auth import get_user_model
 # django의 내장 로그인 기능
-from django.contrib.auth import authenticate
+# from django.contrib.auth import authenticate
 # django의 기본 패스워드 검증 도구
 from django.contrib.auth.password_validation import validate_password
 # 이메일 방지를 위한 검증 도구
 from rest_framework.validators import UniqueValidator
 #token 모델
 from rest_framework.authtoken.models import Token
+from dj_rest_auth.serializers import UserDetailsSerializer
 
 
 
-User = get_user_model()
+# User = get_user_model()
 
 #############회원가입################
 class UserSignupSerializer(serializers.ModelSerializer):
@@ -59,6 +60,21 @@ class UserSignupSerializer(serializers.ModelSerializer):
         # token = Token.objects.create(user=user)
         return user 
     
+
+
+class CustomUserDetailsSerializer(UserDetailsSerializer): 
+    class Meta(UserDetailsSerializer.Meta):
+        model = User  
+        fields = (
+            'pk',
+            'username',
+            'email',
+            'first_name',
+            'last_name',
+            'phone_number',
+        )
+
+
 ############# 로그인 #############
 
 # class LoginSerializer(serializers.Serializer):
