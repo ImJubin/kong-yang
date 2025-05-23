@@ -7,6 +7,8 @@ class User(AbstractUser):
     # 핸드폰 번호에 대한 정보
     phone_number = models.CharField(max_length=11, unique=True)
     email = models.EmailField(unique=True)
+    first_name = models.CharField(max_length=150, blank=False)
+    last_name = models.CharField(max_length=150, blank=False)
 
 class Account(models.Model):
     # 유저와 계좌 정보 1:N으로 연결해주기

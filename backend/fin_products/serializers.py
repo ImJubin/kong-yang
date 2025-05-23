@@ -1,29 +1,53 @@
-# serializers.py
 from rest_framework import serializers
-from .models import DepositProduct, DepositOption
+from .models import DepositOption, DepositProduct, SavingsProduct, SavingsOption
 
-# 옵션(기간별 금리 정보) 시리얼라이저
+
+
+
+# 예금
+
+# 예금 상품 기본 정보 시리얼라이저
+class DepositProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DepositProduct
+        fields = '__all__'
+
+# 옵션(금리 정보) 시리얼라이저
 class DepositOptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = DepositOption
-        fields = [
-            'save_trm',         # 예치 기간
-            'intr_rate',        # 기본 금리
-            'intr_rate2',       # 최고 우대 금리
-            'intr_rate_type_nm' # 단리/복리
-        ]
+        fields = '__all__'
 
-# 예금 상품 시리얼라이저 (옵션을 포함)
-class DepositProductSerializer(serializers.ModelSerializer):
-    options = DepositOptionSerializer(many=True, read_only=True)  # 역참조 필드
+# 옵션까지 포함한 상세 시리얼라이저
+class DepositProductDetailSerializer(serializers.ModelSerializer):
+    options = DepositOptionSerializer(many=True, read_only=True)
 
     class Meta:
         model = DepositProduct
-        fields = [
-            'id',
-            'fin_prdt_cd', 'kor_co_nm', 'fin_prdt_nm',
-            'join_way', 'join_member', 'etc_note',
-            'spcl_cnd', 'max_limit', 'dcls_month',
-            'created_at',
-            'options'
-        ]
+        fields = '__all__'
+
+
+#########################################################
+
+# 적금
+
+
+# 금리 옵션 정보
+class SavingsOptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SavingsOption
+        fields = '__all__'
+
+# 적금 기본 정보만 보고 싶을 때
+class SavingsProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SavingsProduct
+        fields = '__all__'
+
+# 옵션까지 포함한 상세 보기 용도
+class SavingsProductDetailSerializer(serializers.ModelSerializer):
+    options = SavingsOptionSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = SavingsProduct
+        fields = '__all__'

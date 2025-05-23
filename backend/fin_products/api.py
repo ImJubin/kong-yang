@@ -1,6 +1,6 @@
 import requests
 from django.conf import settings
-from .models import DepositProduct, DepositOption, SavingsProduct
+from .models import DepositProduct, DepositOption, SavingsProduct, SavingsOption
 from django.conf import settings
 
 api_key = settings.FSS_API_KEY
@@ -29,99 +29,89 @@ def fetch_and_save_deposit_products():
 
     for product_data in base_list:
         product = DepositProduct.objects.create(
-            # 금융상품 코드
-            fin_prdt_cd = product_data["fin_prdt_cd"],
-            # 금융회사 명
-            kor_co_nm = product_data["kor_co_nm"],
-            # 금융 상품명
-            fin_prdt_nm = product_data["fin_prdt_nm"],
-            # 가입 방법
-            join_way = product_data["join_way"],
-            # 가입대상
-            join_member = product_data["join_member"],
-            # 기타 유의사항
-            etc_note = product_data.get("etc_note"),
-            # 우대조건
-            spcl_cnd = product_data.get("spcl_cnd"),
-            # 최고한도
-            max_limit = product_data.get("max_limit"),
-            # 공시 제출월 [YYYYMM]
-            dcls_month = product_data["dcls_month"]
+            dcls_month=product_data["dcls_month"],
+            fin_co_no=product_data["fin_co_no"],
+            kor_co_nm=product_data["kor_co_nm"],
+            fin_prdt_cd=product_data["fin_prdt_cd"],
+            fin_prdt_nm=product_data["fin_prdt_nm"],
+            join_way=product_data["join_way"],
+            mtrt_int=product_data["mtrt_int"],
+            spcl_cnd=product_data.get("spcl_cnd"),
+            join_member=product_data["join_member"],
+            etc_note=product_data.get("etc_note"),
+            max_limit=product_data.get("max_limit"),
+            dcls_strt_day=product_data["dcls_strt_day"],
+            dcls_end_day=product_data.get("dcls_end_day"),
+            fin_co_subm_day=product_data["fin_co_subm_day"],
         )
 
+        # 옵션 연결: 상품코드 & 금융회사코드 둘 다 일치하는 옵션만 저장
         for option_data in option_list:
-            # product_data
-            if option_data["fin_prdt_cd"] == product.fin_prdt_cd:
+            if (
+                option_data["fin_prdt_cd"] == product.fin_prdt_cd and
+                option_data["fin_co_no"] == product.fin_co_no
+            ):
                 DepositOption.objects.create(
                     deposit_product=product,
-                    # 저축 기간 [단위: 개월]
+                    intr_rate_type=option_data.get("intr_rate_type", ""),
+                    intr_rate_type_nm=option_data.get("intr_rate_type_nm", ""),
                     save_trm=int(option_data["save_trm"]),
-                    # 저축 금리 [소수점 2자리]
                     intr_rate=option_data.get("intr_rate"),
-                    # 최고 우대금리 [소수점 2자리]
                     intr_rate2=option_data.get("intr_rate2"),
-                    # 저축 금리 유형명
-                    intr_rate_type_nm=option_data.get("intr_rate_type_nm", "")
                 )
 
 
 #################################################################################
 
-def fetch_and_save_saving_products():
+
+def fetch_and_save_savings_products():
     # 기존 적금 상품 전체 삭제
     SavingsProduct.objects.all().delete()
 
-    # 예금 조회 요청 URL
-    url = "https://finlife.fss.or.kr/finlifeapi/depositProductsSearch.json"
+    url = "https://finlife.fss.or.kr/finlifeapi/savingProductsSearch.json"
     params = {
-        "auth": api_key,
-        # 권역코드(은행)
-        "topFinGrpNo": "020000",
-        # api page
-        "pageNo": 1  
+        "auth": settings.FSS_API_KEY,
+        "topFinGrpNo": "020000",  # 은행
+        "pageNo": 1,
     }
 
     response = requests.get(url, params=params)
     data = response.json()
-    # 상품 종류
+
     base_list = data["result"]["baseList"]
-    # 상품 옵션들
     option_list = data["result"]["optionList"]
 
-
     for product_data in base_list:
-        product = DepositProduct.objects.create(
-            # 금융상품 코드
-            fin_prdt_cd = product_data["fin_prdt_cd"],
-            # 금융회사 명
-            kor_co_nm = product_data["kor_co_nm"],
-            # 금융 상품명
-            fin_prdt_nm = product_data["fin_prdt_nm"],
-            # 가입 방법
-            join_way = product_data["join_way"],
-            # 가입대상
-            join_member = product_data["join_member"],
-            # 기타 유의사항
-            etc_note = product_data.get("etc_note"),
-            # 우대조건
-            spcl_cnd = product_data.get("spcl_cnd"),
-            # 최고한도
-            max_limit = product_data.get("max_limit"),
-            # 공시 제출월 [YYYYMM]
-            dcls_month = product_data["dcls_month"]
+        product = SavingsProduct.objects.create(
+            dcls_month=product_data["dcls_month"],
+            fin_co_no=product_data["fin_co_no"],
+            kor_co_nm=product_data["kor_co_nm"],
+            fin_prdt_cd=product_data["fin_prdt_cd"],
+            fin_prdt_nm=product_data["fin_prdt_nm"],
+            join_way=product_data["join_way"],
+            mtrt_int=product_data["mtrt_int"],
+            spcl_cnd=product_data["spcl_cnd"],
+            join_deny=product_data["join_deny"],
+            join_member=product_data["join_member"],
+            etc_note=product_data.get("etc_note"),
+            max_limit=product_data.get("max_limit"),
+            dcls_strt_day=product_data["dcls_strt_day"],
+            dcls_end_day=product_data.get("dcls_end_day"),
+            fin_co_subm_day=product_data["fin_co_subm_day"],
         )
 
         for option_data in option_list:
-            # product_data
-            if option_data["fin_prdt_cd"] == product.fin_prdt_cd:
-                DepositOption.objects.create(
-                    deposit_product=product,
-                    # 저축 기간 [단위: 개월]
+            if (
+                option_data["fin_prdt_cd"] == product.fin_prdt_cd and
+                option_data["fin_co_no"] == product.fin_co_no
+            ):
+                SavingsOption.objects.create(
+                    product=product,
+                    intr_rate_type=option_data.get("intr_rate_type", ""),
+                    intr_rate_type_nm=option_data.get("intr_rate_type_nm", ""),
+                    rsrv_type=option_data.get("rsrv_type", ""),
+                    rsrv_type_nm=option_data.get("rsrv_type_nm", ""),
                     save_trm=int(option_data["save_trm"]),
-                    # 저축 금리 [소수점 2자리]
                     intr_rate=option_data.get("intr_rate"),
-                    # 최고 우대금리 [소수점 2자리]
                     intr_rate2=option_data.get("intr_rate2"),
-                    # 저축 금리 유형명
-                    intr_rate_type_nm=option_data.get("intr_rate_type_nm", "")
                 )

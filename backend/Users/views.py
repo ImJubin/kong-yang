@@ -1,10 +1,8 @@
-from django.contrib.auth import login as auth_login
-from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import update_session_auth_hash, get_user_model
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.shortcuts import redirect, render
 
-from .forms import CustomUserChangeForm, CustomUserCreationForm
+from .forms import CustomUserCreationForm
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 
