@@ -1,0 +1,20 @@
+<template></template>
+
+<script setup>
+import { ref, onMounted } from "vue";
+import { useArticleStore } from "@/stores/articles";
+import axios from "axios";
+
+const posts = ref([]);
+
+onMounted(async () => {
+  const res = await axios.get("http://localhost:8000/api/v1/posts/", {
+    headers: {
+      Authorization: `Token ${localStorage.getItem("token")}`,
+    },
+  });
+  posts.value = res.data;
+});
+</script>
+
+<style scoped></style>

@@ -1,6 +1,6 @@
 <template>
   <h2>게시글 생성 페이지</h2>
-  <form @submit.prevent="createArticle">
+  <form @submit.prevent="create">
     <!-- input 태그와 textarea가 비었을떄는... 좀 처리가 되도록... -->
     <label for="title">title: </label>
     <input type="text" id="title" v-model="title" />
@@ -35,7 +35,7 @@ const createArticle = function () {
     .then((res) => {
       console.log(res);
       console.log(res.data);
-      router.push({ name:'home' });
+      router.push({ name: "home" });
     })
     .catch((err) => console.log(err));
 };

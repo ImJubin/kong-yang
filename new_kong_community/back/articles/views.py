@@ -1,8 +1,9 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from .models import Comment
 from rest_framework import status
 from django.shortcuts import render
-from .serializers import ArticleListSerializer, ArticleSerializer, ArticleDetailSerializer
+from .serializers import ArticleListSerializer, ArticleSerializer, ArticleDetailSerializer, CommentSerializer
 from .models import Article
 
 
@@ -20,13 +21,6 @@ def article_list_create(request):
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data)
-
-# 전체 리뷰 목록
-# @api_view(['GET'])
-# def article_list(request):
-#      = article.objects.all()
-#     serializer = ArticleSerializer(articles, many=True)
-#     return Response(serializer.data)
 
 # 단일 게시글 조회/수정/삭제
 @api_view(['GET', 'PUT', 'DELETE'])
@@ -46,7 +40,7 @@ def article_detail(request, article_pk):
             article = serializer.save()
             response_serializer = ArticleDetailSerializer(article)
             return Response(response_serializer.data)
-        print('들어왔니?')
+        # print('들어왔니?')
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
@@ -70,3 +64,14 @@ def create_aritcle(request, aritcle_pk):
         return Response(response_serializer.data, status=status.HTTP_201_CREATED)
     
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def comment_create(request, article_pk):
+    data = request.data()
+    data['article'] = article_pk  # 연결된 게시글 ID 설정
+
+    serializer = CommentSerializer(data=data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=201)
+    return Response(serializer.errors, status=400)
