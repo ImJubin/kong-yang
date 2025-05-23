@@ -1,18 +1,19 @@
 from rest_framework import serializers
 from .models import User, Account
-from django.contrib.auth import get_user_model
+# from django.contrib.auth import get_user_model
 # django의 내장 로그인 기능
-from django.contrib.auth import authenticate
+# from django.contrib.auth import authenticate
 # django의 기본 패스워드 검증 도구
 from django.contrib.auth.password_validation import validate_password
 # 이메일 방지를 위한 검증 도구
 from rest_framework.validators import UniqueValidator
 #token 모델
 from rest_framework.authtoken.models import Token
+from dj_rest_auth.serializers import UserDetailsSerializer
 
 
 
-User = get_user_model()
+# User = get_user_model()
 
 #############회원가입################
 class UserSignupSerializer(serializers.ModelSerializer):
@@ -21,10 +22,6 @@ class UserSignupSerializer(serializers.ModelSerializer):
         required=True,
         validators=[UniqueValidator(queryset=User.objects.all())],
     )
-    
-    # password = serializers.CharField(write_only=True)
-    # password2 = serializers.CharField(write_only=True)
-
     password = serializers.CharField(
         write_only=True,
         required=True,
@@ -37,7 +34,7 @@ class UserSignupSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'phone_number', 'password', 'password2')
+        fields = ('username', 'email', 'password', 'password2', 'first_name', 'last_name','phone_number')
 
     # password 1과 2가 둘이 일치하는지 확인
     def validate(self, data):
@@ -52,7 +49,10 @@ class UserSignupSerializer(serializers.ModelSerializer):
         password = validated_data.pop('password')
         user = User.objects.create_user(
             username = validated_data['username'],
-            email = validated_data['email']
+            email = validated_data['email'],
+            first_name = validated_data['first_name'],
+            last_name = validated_data['last_name'],
+            phone_number = validated_data['phone_number'],
         )
         user.set_password(password)
         user.save()
@@ -60,21 +60,36 @@ class UserSignupSerializer(serializers.ModelSerializer):
         # token = Token.objects.create(user=user)
         return user 
     
+
+
+class CustomUserDetailsSerializer(UserDetailsSerializer): 
+    class Meta(UserDetailsSerializer.Meta):
+        model = User  
+        fields = (
+            'pk',
+            'username',
+            'email',
+            'first_name',
+            'last_name',
+            'phone_number',
+        )
+
+
 ############# 로그인 #############
 
-class LoginSerializer(serializers.Serializer):
-    # 프론트에서 보낸 Json의 username, password, model이 아니어서 meta도 없고 필요없음
-    username = serializers.CharField()
-    password = serializers.CharField(write_only = True)
+# class LoginSerializer(serializers.Serializer):
+#     # 프론트에서 보낸 Json의 username, password, model이 아니어서 meta도 없고 필요없음
+#     username = serializers.CharField()
+#     password = serializers.CharField(write_only = True)
 
-    def validate(self, data):
-        user = authenticate(
-            username=data.get("username"),
-            password=data.get("password")
-        )
-        if not user:
-            raise serializers.ValidationError({
-                "loginError": "아이디 또는 비밀번호가 일치하지 않습니다."
-            })
-        data["user"] = user
-        return data
+#     def validate(self, data):
+#         user = authenticate(
+#             username=data.get("username"),
+#             password=data.get("password")
+#         )
+#         if not user:
+#             raise serializers.ValidationError({
+#                 "loginError": "아이디 또는 비밀번호가 일치하지 않습니다."
+#             })
+#         data["user"] = user
+#         return data

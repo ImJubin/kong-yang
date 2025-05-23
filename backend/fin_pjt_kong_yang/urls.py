@@ -16,8 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from users.views import CustomUserDetailsView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('users/',include('Users.urls')),
+    # 회원가입 관련 url
+    path('users/',include('users.urls')),
+    # path('users/signup/', include('dj_rest_auth.registration.urls'))
+    
+    # 회원정보 관련 url
+    path('users/user/', CustomUserDetailsView.as_view()),  # ✅ 덮어쓰기
+    path('users/', include('dj_rest_auth.urls')),
 ]
