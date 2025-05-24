@@ -1,6 +1,6 @@
 <template>
   <h2>게시글 생성 페이지</h2>
-  <form @submit.prevent="create">
+  <form @submit.prevent="createArticle">
     <!-- input 태그와 textarea가 비었을떄는... 좀 처리가 되도록... -->
     <label for="title">title: </label>
     <input type="text" id="title" v-model="title" />

@@ -1,6 +1,6 @@
 <template>
   <h2>게시글 수정 페이지</h2>
-  <form @submit.prevent="update">
+  <form @submit.prevent="updateArticle">
     <label for="title">title: </label>
     <input type="text" id="title" v-model="title" />
 
@@ -53,11 +53,14 @@ const updateArticle = async () => {
       }
     );
     console.log("수정 성공:", res.data);
-    router.push({ name: "ArticleDetailView", params: { id: route.params.id } }); // 수정 후 상세 페이지로 이동
+    router.push({ name: "home" }); // 수정 후 상세 페이지로 이동
   } catch (err) {
     console.error("수정 실패", err);
+    router.push({ name: 'Home' })  // or 상세 페이지로 이동
   }
-};
+}
+
+
 </script>
 
 <style scoped></style>

@@ -16,7 +16,7 @@ import ArticleList from "@/components/ArticleList.vue";
 
 // const store = getArticles();
 const store = useArticleStore();
-const route = useRoute();
+// const route = useRoute();
 
 onMounted(() => {
   store.getArticles();

@@ -1,4 +1,8 @@
-<template></template>
+<template>
+  <RouterLink :to="{ name: 'ArticleDetailView', params: { id: article.id } }">
+  <p>{{ article.title }}</p>
+</RouterLink>
+</template>
 
 <script setup>
 import { ref, onMounted } from "vue";

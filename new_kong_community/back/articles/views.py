@@ -75,3 +75,4 @@ def comment_create(request, article_pk):
         serializer.save()
         return Response(serializer.data, status=201)
     return Response(serializer.errors, status=400)
+
