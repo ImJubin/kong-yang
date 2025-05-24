@@ -5,6 +5,7 @@ from rest_framework import status
 from django.shortcuts import render
 from .serializers import ArticleListSerializer, ArticleSerializer, ArticleDetailSerializer, CommentSerializer
 from .models import Article
+from django.shortcuts import get_object_or_404
 
 
 #전체 글 목록
@@ -65,14 +66,23 @@ def create_aritcle(request, aritcle_pk):
     
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['POST'])
+#댓글작성
+@api_view(['GET', 'POST'])
 def comment_create(request, article_pk):
-    data = request.data()
-    data['article'] = article_pk  # 연결된 게시글 ID 설정
+    article = get_object_or_404(Article, pk=article_pk)  # ✅ 게시글 가져오기
 
-    serializer = CommentSerializer(data=data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data, status=201)
-    return Response(serializer.errors, status=400)
+    if request.method == 'GET':
+        comments = article.comments.all()
+        serializer = CommentSerializer(comments, many=True)
+        return Response(serializer.data)
+
+    if request.method == 'POST':
+        serializer = CommentSerializer(
+            data=request.data,
+            context={'request': request, 'article': article}
+        )
+        if serializer.is_valid():
+            serializer.save()  # 👈 user, article은 context로 전달
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
 
