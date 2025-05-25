@@ -17,15 +17,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from users.views import CustomUserDetailsView
-
+from dj_rest_auth.views import UserDetailsView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # 회원가입 관련 url
     path('users/',include('users.urls')),
+    path('products/',include('fin_products.urls')),
     # path('users/signup/', include('dj_rest_auth.registration.urls'))
     
     # 회원정보 관련 url
     path('users/user/', CustomUserDetailsView.as_view()),  # ✅ 덮어쓰기
     path('users/', include('dj_rest_auth.urls')),
+    path('accounts/user/', UserDetailsView.as_view(), name='rest_user_details'),
 ]

@@ -8,7 +8,7 @@ export const useUserStore = defineStore('user', () => {
     const API_URL = 'http://127.0.0.1:8000'
 
 
-    const token = ref(localStorage.getItem('token') || null)
+    const token = ref(sessionStorage.getItem('authToken') || null)
     const user = ref(null)
   
 
@@ -51,7 +51,7 @@ export const useUserStore = defineStore('user', () => {
       })
 
       token.value = res.data.key
-      localStorage.setItem('token', token.value)
+      sessionStorage.setItem('authToken', token.value)
 
       await fetchUserInfo()
       router.push({ name: 'Home' })
@@ -91,7 +91,7 @@ export const useUserStore = defineStore('user', () => {
   // 토큰 및 사용자 정보 초기화
   token.value = null
   user.value = null
-  localStorage.removeItem('token')
+  sessionStorage.removeItem('token')
   
   // 홈으로 이동
   router.push({ name: 'Home' })
@@ -135,5 +135,21 @@ const changePassword = async function (payload) {
   }
 }
 
-  return { token, user, signUp, logIn, logOut, fetchUserInfo, changePassword, updateUserInfo }
+const deleteUser = async () => {
+  const token = sessionStorage.getItem('authToken')
+  try {
+    await axios.delete(`${API_URL}/accounts/user/`, {
+      headers: {
+        Authorization: `Token ${token}`
+      }
+    })
+    // 토큰 삭제하고 홈으로 이동
+    sessionStorage.removeItem('authToken')
+    router.push({ name: 'Home' })
+  } catch (err) {
+    console.error('회원 탈퇴 실패:', err.response?.data)
+  }
+}
+
+  return { token, user, signUp, logIn, logOut, fetchUserInfo, changePassword, updateUserInfo, deleteUser }
 },{ persist: true })
