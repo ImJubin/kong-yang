@@ -48,12 +48,12 @@ const updateArticle = async () => {
       },
       {
         headers: {
-          Authorization: `Token ${localStorage.getItem("token")}`,
+          Authorization: `Token ${sessionStorage.getItem("authToken")}`,
         },
       }
     );
     console.log("수정 성공:", res.data);
-    router.push({ name: "home" }); // 수정 후 상세 페이지로 이동
+    router.push({ name: "Home" }); // 수정 후 상세 페이지로 이동
   } catch (err) {
     console.error("수정 실패", err);
     router.push({ name: 'Home' })  // or 상세 페이지로 이동

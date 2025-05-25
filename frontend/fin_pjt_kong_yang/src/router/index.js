@@ -4,8 +4,12 @@ import SignUpView from '@/views/SignUpView.vue'
 import LoginView from '@/views/LoginView.vue'
 import MyPageView from '@/views/MyPageView.vue'
 import UpdateMyDataView from '@/views/UpdateMyDataView.vue' 
+import ArticleCreateView from "@/views/ArticleCreateView.vue";
+import ArticleUpdateView from "@/views/ArticleUpdateView.vue";
+import ArticleList from "../components/ArticleList.vue";
 import ProductPageView from '@/views/ProductPageView.vue'
 import BankFinderView from '@/views/BankFinderView.vue'
+import ProductDetailView from '@/views/ProductDetailView.vue'
 
 // ✅ 로그인된 사용자가 회원가입 페이지에 접근하지 못하도록
 const requireNotLoggedIn = (to, from, next) => {
@@ -72,13 +76,43 @@ const router = createRouter({
       component: ProductPageView,
       beforeEnter: requireLoggedIn
     },
+    {
+      path: '/product/:type/:id',
+      name: 'ProductDetail',
+      component: ProductDetailView,
+      props: true,
+      beforeEnter: requireLoggedIn,
+    },
     { path: '/', 
       name: 'bankFinder', 
       component: BankFinderView,
       beforeEnter: requireLoggedIn 
     },
-
-  ],
+     {
+      path: "/create",
+      name: "create",
+      component: ArticleCreateView,
+      beforeEnter: requireLoggedIn 
+    },
+    {
+      path: "/articles/:id/edit",
+      name: "ArticleUpdateView",
+      component: ArticleUpdateView,
+      beforeEnter: requireLoggedIn 
+    },
+   {
+      path: "/articles/component/",
+      name: "ArticleList",
+      component: ArticleList,
+      beforeEnter: requireLoggedIn 
+    },
+    {
+      path: '/articles/:id',
+      name: 'ArticleDetailView',
+      component: () => import('@/views/ArticleDetailView.vue'), // 또는 직접 import
+      beforeEnter: requireLoggedIn 
+    },
+    ],
 })
 
 export default router

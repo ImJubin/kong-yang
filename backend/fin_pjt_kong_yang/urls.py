@@ -30,4 +30,5 @@ urlpatterns = [
     path('users/user/', CustomUserDetailsView.as_view()),  # ✅ 덮어쓰기
     path('users/', include('dj_rest_auth.urls')),
     path('accounts/user/', UserDetailsView.as_view(), name='rest_user_details'),
+    path('api/v1/', include('articles.urls')),
 ]

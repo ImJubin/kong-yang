@@ -35,7 +35,7 @@ const createArticle = function () {
     .then((res) => {
       console.log(res);
       console.log(res.data);
-      router.push({ name: "home" });
+      router.push({ name: "Home" });
     })
     .catch((err) => console.log(err));
 };

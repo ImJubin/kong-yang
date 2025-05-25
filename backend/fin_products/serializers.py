@@ -14,6 +14,7 @@ class DepositProductDetailSerializer(serializers.ModelSerializer):
     options = DepositOptionSerializer(many=True, read_only=True)
     bestRate = serializers.SerializerMethodField()
     predictedProfit = serializers.SerializerMethodField()
+    type = serializers.SerializerMethodField()
 
     class Meta:
         model = DepositProduct
@@ -21,8 +22,11 @@ class DepositProductDetailSerializer(serializers.ModelSerializer):
             'id', 'dcls_month', 'fin_co_no', 'kor_co_nm', 'fin_prdt_cd', 'fin_prdt_nm',
             'join_way', 'mtrt_int', 'spcl_cnd', 'join_member', 'etc_note',
             'max_limit', 'dcls_strt_day', 'dcls_end_day', 'fin_co_subm_day', 'created_at',
-            'options', 'bestRate', 'predictedProfit'
+            'options', 'bestRate', 'predictedProfit','type'
         ]
+    
+    def get_type(self, obj):
+        return 'deposit'
 
     def get_bestRate(self, obj):
         options = obj.options.all()
@@ -61,6 +65,7 @@ class SavingsProductDetailSerializer(serializers.ModelSerializer):
     options = SavingsOptionSerializer(many=True, read_only=True)
     bestRate = serializers.SerializerMethodField()
     predictedProfit = serializers.SerializerMethodField()
+    type = serializers.SerializerMethodField()
 
     class Meta:
         model = SavingsProduct
@@ -69,8 +74,11 @@ class SavingsProductDetailSerializer(serializers.ModelSerializer):
             'join_way', 'mtrt_int', 'spcl_cnd', 'join_deny', 'join_member',
             'etc_note', 'max_limit', 'dcls_strt_day', 'dcls_end_day',
             'fin_co_subm_day', 'created_at',
-            'options', 'bestRate', 'predictedProfit'
+            'options', 'bestRate', 'predictedProfit','type'
         ]
+
+    def get_type(self, obj):
+        return 'savings'
 
     def get_bestRate(self, obj):
         options = obj.options.all()

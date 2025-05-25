@@ -13,7 +13,7 @@ export const useArticleStore = defineStore(
         method: "get",
         url: "http://127.0.0.1:8000/api/v1/articles/",
         headers: {
-          Authorization: `Token ${localStorage.getItem("token")}`,
+          Authorization: `Token ${sessionStorage.getItem("authToken")}`,
         },
       })
         .then((res) => {
@@ -31,7 +31,7 @@ export const useArticleStore = defineStore(
         url: `${API_URL}/api/v1/articles/${articleId}/`,
         data: updatedData,
         headers: {
-          Authorization: `Token ${localStorage.getItem("token")}`,
+          Authorization: `Token ${sessionStorage.getItem("authToken")}`,
         },
       });
     };
@@ -41,7 +41,7 @@ export const useArticleStore = defineStore(
         method: "delete",
         url: `${API_URL}/api/v1/articles/${articleId}/`,
         headers: {
-          Authorization: `Token ${localStorage.getItem("token")}`,
+          Authorization: `Token ${sessionStorage.getItem("authToken")}`,
         },
       });
     };

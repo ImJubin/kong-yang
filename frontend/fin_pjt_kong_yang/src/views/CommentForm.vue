@@ -21,7 +21,7 @@ const submitComment = async () => {
       },
       {
         headers: {
-          Authorization: `Token ${localStorage.getItem("token")}`,
+          Authorization: `Token ${sessionStorage.getItem("authToken")}`,
         },
       }
     );

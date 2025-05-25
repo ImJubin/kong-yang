@@ -55,7 +55,7 @@ const deleteArticle = async () => {
   if (confirm('정말 삭제할까요?')) {
     await axios.delete(`${store.API_URL}/api/v1/articles/${route.params.id}/`, {
       headers: {
-        Authorization: `Token ${localStorage.getItem("token")}`,
+        Authorization: `Token ${sessionStorage.getItem("authToken")}`,
       }
     })
     router.push({ name: 'ArticleList' })
@@ -68,7 +68,7 @@ const createComment = async () => {
     content: newComment.value
   }, {
     headers: {
-      Authorization: `Token ${localStorage.getItem("token")}`,
+      Authorization: `Token ${sessionStorage.getItem("authToken")}`,
     }
   })
   comments.value.push(res.data)
@@ -79,7 +79,7 @@ const createComment = async () => {
 const likeComment = async (commentId) => {
   const res = await axios.post(`${store.API_URL}/api/v1/comments/${commentId}/like/`, {}, {
     headers: {
-      Authorization: `Token ${localStorage.getItem("token")}`,
+      Authorization: `Token ${sessionStorage.getItem("authToken")}`,
     }
   })
   const updated = res.data

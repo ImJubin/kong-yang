@@ -14,7 +14,7 @@ const posts = ref([]);
 onMounted(async () => {
   const res = await axios.get("http://localhost:8000/api/v1/posts/", {
     headers: {
-      Authorization: `Token ${localStorage.getItem("token")}`,
+      Authorization: `Token ${sessionStorage.getItem("authToken")}`,
     },
   });
   posts.value = res.data;

@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     # apps
     'users',
     'fin_products',
+    'articles',
     # rest
     'rest_framework',
     # 로그인 유지를 위한 token
@@ -164,6 +165,21 @@ REST_FRAMEWORK = {
 from decouple import config
 
 FSS_API_KEY = config("FSS_API_KEY")
+
+
+
+
+from pathlib import Path
+import environ
+
+BASE_DIR = Path(__file__).resolve().parent.parent  # ✅ manage.py가 있는 디렉토리
+env = environ.Env()
+environ.Env.read_env(BASE_DIR / '.env')
+
+OPENAI_API_KEY = env('OPENAI_API_KEY')
+
+
+
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
