@@ -46,6 +46,46 @@ print("✅ CustomUserDetailsView serializer:", CustomUserDetailsView.serializer_
 print("📦 현재 사용 중인 시리얼라이저:", UserDetailsView.serializer_class)
 
 
+from .models import Account
+from .serializers import AccountCreateSerializer, AccountSerializer
+
+
+@api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])
+def user_accounts(request):
+    if request.method == 'GET':
+        accounts = Account.objects.filter(user_id=request.user)
+        serializer = AccountSerializer(accounts, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        serializer = AccountCreateSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(user_id=request.user)
+            return Response({"message": "계좌가 추가되었습니다."}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.decorators import authentication_classes
+
+
+
+@api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+def user_accounts(request):
+    user = request.user
+    accounts = Account.objects.filter(user_id=user)
+
+    # ⏱ 실시간 이자 갱신
+    for account in accounts:
+        if hasattr(account, 'savings_detail'):
+            account.savings_detail.update_hourly_interest()
+        if hasattr(account, 'deposit_detail'):
+            account.deposit_detail.update_hourly_interest()
+
+    serializer = AccountSerializer(accounts, many=True)
+    return Response(serializer.data)
 
 
 
@@ -53,13 +93,42 @@ print("📦 현재 사용 중인 시리얼라이저:", UserDetailsView.serialize
 
 
 
+# users/views.py
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .models import SavingsDetail, DepositDetail
 
+@api_view(['GET'])
+def calendar_dates(request):
+    events = []
 
+    # 적금 시작일 + 만기일
+    for sd in SavingsDetail.objects.all():
+        events.append({
+            'type': '적금 시작',
+            'date': str(sd.started_at),
+            'name': sd.product_name,
+        })
+        events.append({
+            'type': '적금 만기',
+            'date': str(sd.ends_at),
+            'name': sd.product_name,
+        })
 
+    # 예금 시작일 + 만기일
+    for dd in DepositDetail.objects.all():
+        events.append({
+            'type': '예금 시작',
+            'date': str(dd.started_at),
+            'name': dd.product_name,
+        })
+        events.append({
+            'type': '예금 만기',
+            'date': str(dd.ends_at),
+            'name': dd.product_name,
+        })
 
-
-
-
+    return Response(events)
 
 
 

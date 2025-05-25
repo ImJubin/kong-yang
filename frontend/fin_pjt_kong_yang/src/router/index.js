@@ -4,10 +4,12 @@ import SignUpView from '@/views/SignUpView.vue'
 import LoginView from '@/views/LoginView.vue'
 import MyPageView from '@/views/MyPageView.vue'
 import UpdateMyDataView from '@/views/UpdateMyDataView.vue' 
+import ProductPageView from '@/views/ProductPageView.vue'
+import BankFinderView from '@/views/BankFinderView.vue'
 
 // ✅ 로그인된 사용자가 회원가입 페이지에 접근하지 못하도록
 const requireNotLoggedIn = (to, from, next) => {
-  const token = localStorage.getItem('token')
+  const token = sessionStorage.getItem('authToken')
   if (token) {
     next('/') // 홈으로 리다이렉트
   } else {
@@ -16,7 +18,7 @@ const requireNotLoggedIn = (to, from, next) => {
 }
 // 로그인 되지 않은 사용자가 회원제 페이지에 들어가려고 할 때때
 const requireLoggedIn = (to, from, next) => {
-  const token = localStorage.getItem('token')
+  const token = sessionStorage.getItem('authToken')
   if (!token) {
     next({ name: 'Login' })
   } else {
@@ -63,7 +65,19 @@ const router = createRouter({
       name: 'UpdateMyData',
       component: UpdateMyDataView,
       beforeEnter: requireLoggedIn
-    }
+    },
+    {
+      path: '/product',
+      name: 'ProductPage',
+      component: ProductPageView,
+      beforeEnter: requireLoggedIn
+    },
+    { path: '/', 
+      name: 'bankFinder', 
+      component: BankFinderView,
+      beforeEnter: requireLoggedIn 
+    },
+
   ],
 })
 

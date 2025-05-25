@@ -1,6 +1,7 @@
 <script setup>
 // import TheWelcome from '../components/TheWelcome.vue'
 import { useUserStore } from '@/stores/user'
+import MainCalendar from '@/components/MainCalendar.vue'
 const userStore = useUserStore()
 import axios from "axios";
 import { onMounted } from "vue";
