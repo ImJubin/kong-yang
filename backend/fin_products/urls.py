@@ -8,4 +8,6 @@ urlpatterns = [
     # path('recommend/', views.recommend_products, name='recommend'),
      path('deposit/<int:pk>/', views.DepositProductDetailView.as_view(), name='deposit-detail'),
     path('savings/<int:pk>/', views.SavingsProductDetailView.as_view(), name='savings-detail'),
+    path('recommend/', views.recommend_products, name='recommend-products'),
+    
 ]

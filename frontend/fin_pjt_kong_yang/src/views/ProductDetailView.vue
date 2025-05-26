@@ -72,7 +72,10 @@ onMounted(async () => {
           </tbody>
         </table>
       </div>
+
+      <PurchaseForm :product="product" :type="product.type" />
     </div>
+    
 
     <div v-else class="text-gray-500">로딩 중...</div>
   </div>
@@ -82,6 +85,7 @@ onMounted(async () => {
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
+import PurchaseForm from '@/components/PurchaseForm.vue'
 
 const route = useRoute()
 const product = ref(null)

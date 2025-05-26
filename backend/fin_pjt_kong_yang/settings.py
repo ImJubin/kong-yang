@@ -169,14 +169,14 @@ FSS_API_KEY = config("FSS_API_KEY")
 
 
 
-from pathlib import Path
-import environ
+# from pathlib import Path
+# import environ
 
-BASE_DIR = Path(__file__).resolve().parent.parent  # ✅ manage.py가 있는 디렉토리
-env = environ.Env()
-environ.Env.read_env(BASE_DIR / '.env')
+# BASE_DIR = Path(__file__).resolve().parent.parent  # ✅ manage.py가 있는 디렉토리
+# env = environ.Env()
+# environ.Env.read_env(BASE_DIR / '.env')
 
-OPENAI_API_KEY = env('OPENAI_API_KEY')
+# OPENAI_API_KEY = env('OPENAI_API_KEY')
 
 
 

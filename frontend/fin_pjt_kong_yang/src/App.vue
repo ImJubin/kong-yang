@@ -39,6 +39,10 @@ onMounted(() => {
      | 
     <RouterLink :to="{ name: 'bankFinder' }" class="nav">은행 위치 조회</RouterLink> 
     <!-- ✅ 추가 -->
+     | 
+    <RouterLink :to="{name:'Search'}">Search</RouterLink>
+     | 
+    <RouterLink :to="{name:'Later'}">Later</RouterLink>
   </nav>
    <NavBar />
   <RouterView />
