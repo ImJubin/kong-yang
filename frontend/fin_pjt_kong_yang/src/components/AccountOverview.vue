@@ -1,5 +1,4 @@
 <template>
-  <AccountAddForm />
   <div class="p-4 bg-gray-100 rounded">
     <h2 class="font-bold text-lg mb-2">내 계좌 현황</h2>
 
@@ -84,6 +83,122 @@
     </div>
   </div>
 </template>
+
+<script setup>
+import { onMounted } from 'vue'  // 마운트 시점에서 비동기 작업 실행용
+import { useAccountStore } from '@/stores/userAccount'  // 계좌 정보 Pinia 스토어
+
+import axios from 'axios'
+
+const store = useAccountStore()
+
+// ✅ 실시간 이자 시뮬레이션 함수
+const startInterestSimulation = function(detail) {
+  if (!detail || !detail.started_at || !detail.ends_at || !detail.interest_total) return
+
+  const start = new Date(detail.started_at)
+  const end = new Date(detail.ends_at)
+  const totalSeconds = (end - start) / 1000
+
+  const totalInterest = parseFloat(detail.interest_total)
+  const interestPerSecond = totalInterest / totalSeconds
+  let simulatedInterest = parseFloat(detail.interest_accumulated)
+
+  detail.simulated_interest = simulatedInterest.toFixed(2)
+
+  setInterval(function() {
+    simulatedInterest += interestPerSecond
+    detail.simulated_interest = simulatedInterest.toFixed(2)
+  }, 1000)
+}
+
+// ✅ 컴포넌트가 마운트되면 실행
+onMounted(async function() {
+  const token = sessionStorage.getItem('authToken')
+
+  try {
+    // 0. 누적 이자 서버에서 갱신
+    await axios.post('http://127.0.0.1:8000/users/update-interest/', {}, {
+      headers: {
+        Authorization: `Token ${token}`
+      }
+    })
+
+    // 1. 계좌 정보 불러오기
+    await store.fetchAccounts()
+
+    // 2. 각 계좌에 대해 실시간 이자 시뮬레이션 시작
+    store.accounts.forEach(function(acc) {
+      if (acc.savings_detail) startInterestSimulation(acc.savings_detail)
+      if (acc.deposit_detail) startInterestSimulation(acc.deposit_detail)
+    })
+
+  } catch (err) {
+    console.error('이자 갱신 또는 계좌 조회 실패:', err)
+  }
+})
+</script>
+
+
+
+<!-- <script setup>
+import { onMounted } from 'vue'  // 마운트 시점에서 비동기 작업 실행용
+import { useAccountStore } from '@/stores/userAccount'  // 계좌 정보 Pinia 스토어
+import AccountAddForm from '@/components/AccountAddForm.vue'  // 계좌 추가 폼 컴포넌트
+
+// Pinia 스토어에서 계좌 목록 가져오기
+const store = useAccountStore()
+
+// ✅ 실시간 이자 시뮬레이션 함수 (표현식 함수 방식)
+const startInterestSimulation = function(detail) {
+  // detail이 비어있거나 필수 정보 없으면 실행 안 함 (예외 방지용)
+  if (!detail || !detail.started_at || !detail.ends_at || !detail.interest_total) return
+
+  // 시작일과 만기일로 전체 기간 계산 (초 단위)
+  const start = new Date(detail.started_at)
+  const end = new Date(detail.ends_at)
+  const totalSeconds = (end - start) / 1000  // 예: 6개월 → 약 15만 초
+
+  // 전체 받을 이자
+  const totalInterest = parseFloat(detail.interest_total)
+
+  // ✅ 1초마다 증가할 이자량 계산
+  const interestPerSecond = totalInterest / totalSeconds
+
+  // 현재 누적 이자에서 시작
+  let simulatedInterest = parseFloat(detail.interest_accumulated)
+
+  // 초기 표시값 설정
+  detail.simulated_interest = simulatedInterest.toFixed(2)
+
+  // ✅ 1초마다 interestPerSecond 만큼 이자 증가
+  setInterval(function() {
+    simulatedInterest += interestPerSecond
+    detail.simulated_interest = simulatedInterest.toFixed(2)
+  }, 1000)  // 1000ms = 1초
+}
+
+// ✅ 컴포넌트가 마운트되면 실행
+onMounted(async function() {
+  // 1. 서버에서 계좌 정보 불러오기
+  await store.fetchAccounts()
+
+  // 2. 모든 계좌에 대해 실시간 이자 시뮬레이션 시작
+  store.accounts.forEach(function(acc) {
+    if (acc.savings_detail) startInterestSimulation(acc.savings_detail)  // 적금용
+    if (acc.deposit_detail) startInterestSimulation(acc.deposit_detail)  // 예금용
+  })
+
+  // // 3. (선택사항) 1분마다 실제 서버 값으로 갱신하려면 아래 주석 해제
+  // setInterval(async function() {
+  //   await store.fetchAccounts()
+  //   console.log('new')
+  // }, 60000)
+})
+</script> -->
+
+
+
 
 <!-- <script setup>
 import { onMounted } from 'vue'
@@ -196,59 +311,3 @@ onMounted(async () => {
 })
 </script> -->
 
-
-<script setup>
-import { onMounted } from 'vue'  // 마운트 시점에서 비동기 작업 실행용
-import { useAccountStore } from '@/stores/userAccount'  // 계좌 정보 Pinia 스토어
-import AccountAddForm from '@/components/AccountAddForm.vue'  // 계좌 추가 폼 컴포넌트
-
-// Pinia 스토어에서 계좌 목록 가져오기
-const store = useAccountStore()
-
-// ✅ 실시간 이자 시뮬레이션 함수 (표현식 함수 방식)
-const startInterestSimulation = function(detail) {
-  // detail이 비어있거나 필수 정보 없으면 실행 안 함 (예외 방지용)
-  if (!detail || !detail.started_at || !detail.ends_at || !detail.interest_total) return
-
-  // 시작일과 만기일로 전체 기간 계산 (초 단위)
-  const start = new Date(detail.started_at)
-  const end = new Date(detail.ends_at)
-  const totalSeconds = (end - start) / 1000  // 예: 6개월 → 약 15만 초
-
-  // 전체 받을 이자
-  const totalInterest = parseFloat(detail.interest_total)
-
-  // ✅ 1초마다 증가할 이자량 계산
-  const interestPerSecond = totalInterest / totalSeconds
-
-  // 현재 누적 이자에서 시작
-  let simulatedInterest = parseFloat(detail.interest_accumulated)
-
-  // 초기 표시값 설정
-  detail.simulated_interest = simulatedInterest.toFixed(2)
-
-  // ✅ 1초마다 interestPerSecond 만큼 이자 증가
-  setInterval(function() {
-    simulatedInterest += interestPerSecond
-    detail.simulated_interest = simulatedInterest.toFixed(2)
-  }, 1000)  // 1000ms = 1초
-}
-
-// ✅ 컴포넌트가 마운트되면 실행
-onMounted(async function() {
-  // 1. 서버에서 계좌 정보 불러오기
-  await store.fetchAccounts()
-
-  // 2. 모든 계좌에 대해 실시간 이자 시뮬레이션 시작
-  store.accounts.forEach(function(acc) {
-    if (acc.savings_detail) startInterestSimulation(acc.savings_detail)  // 적금용
-    if (acc.deposit_detail) startInterestSimulation(acc.deposit_detail)  // 예금용
-  })
-
-  // // 3. (선택사항) 1분마다 실제 서버 값으로 갱신하려면 아래 주석 해제
-  // setInterval(async function() {
-  //   await store.fetchAccounts()
-  //   console.log('new')
-  // }, 60000)
-})
-</script>

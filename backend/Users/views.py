@@ -130,6 +130,194 @@ def calendar_dates(request):
 
     return Response(events)
 
+from uuid import uuid4
+from datetime import date
+from dateutil.relativedelta import relativedelta
+from decimal import Decimal
+from users.models import Account, DepositDetail, SavingsDetail
+from fin_products.models import DepositOption, SavingsOption
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+
+import random
+
+
+def generate_account_number():
+    # 12~14자리 숫자 랜덤 생성
+    return ''.join([str(random.randint(0, 9)) for _ in range(random.randint(12, 14))])
+
+
+from decimal import Decimal, ROUND_HALF_UP, InvalidOperation
+from datetime import date
+from dateutil.relativedelta import relativedelta
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from users.models import Account, DepositDetail, SavingsDetail
+from fin_products.models import DepositOption, SavingsOption
+import random
+
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def purchase_product(request):
+    user = request.user
+    product_type = request.data.get('type')  # 'deposit' or 'savings'
+    option_id = request.data.get('option_id')
+    amount = Decimal(str(request.data.get('amount', 0)))
+
+    if product_type == 'deposit':
+        option = DepositOption.objects.select_related('deposit_product').get(id=option_id)
+        product = option.deposit_product
+
+        # 1️⃣ 계좌 생성
+        acc = Account.objects.create(
+            user_id=user,
+            bank_name=product.kor_co_nm,
+            account_number=generate_account_number(),
+            account_type='예금',
+            current_balance=amount,
+            is_main=False
+        )
+
+        # 2️⃣ 디테일 붙이기
+        DepositDetail.objects.create(
+            account=acc,
+            product_name=product.fin_prdt_nm,
+            interest_rate=option.intr_rate or 0,
+            duration_months=option.save_trm,
+            started_at=date.today(),
+            ends_at=date.today() + relativedelta(months=option.save_trm),
+        )
+
+
+    elif product_type == 'savings':
+        from users.models import SavingsPayment  # 납입 모델
+        option = SavingsOption.objects.select_related('product').get(id=option_id)
+        product = option.product
+        duration = option.save_trm
+        rate = option.intr_rate or Decimal("0.00")
+
+        # 1. 금액(월 납입액) 검증
+        try:
+            amount = Decimal(str(request.data.get('amount', '0'))).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+        except InvalidOperation:
+            return Response({'error': '금액이 유효하지 않습니다.'}, status=400)
+
+        # 2. 계좌 생성
+        acc = Account.objects.create(
+            user_id=user,
+            bank_name=product.kor_co_nm,
+            account_number=generate_account_number(),
+            account_type='적금',
+            current_balance=Decimal("0.00"),  # 초기엔 납입 전으로 0원
+            is_main=False
+        )
+
+        # 3. 목표 금액과 예상 이자 계산
+        goal_amount = (amount * duration).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+        expected_interest = (
+            amount * Decimal(duration + 1) / 2 * (rate / Decimal("100")) * (Decimal("1") / 12)
+        ).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+
+        # 4. 적금 디테일 생성
+        savings_detail = SavingsDetail(
+            account=acc,
+            product_name=product.fin_prdt_nm,
+            interest_rate=rate,
+            duration_months=duration,
+            started_at=date.today(),
+            ends_at=date.today() + relativedelta(months=duration),
+            total_round=duration,
+            goal_amount=goal_amount,
+            interest_total=expected_interest  # ✅ 누적 이자 계산을 위한 기준값
+        )
+
+        # 5. 저장 (pk 없어서 역참조 안 되니까 먼저 save)
+        super(SavingsDetail, savings_detail).save()
+        savings_detail.update_delay_status()
+        savings_detail.save()
+
+        # 6. 1회차 자동 납입 등록
+        SavingsPayment.objects.create(
+            savings_detail=savings_detail,
+            round_number=1,
+            paid_at=date.today(),
+            amount=amount
+        )
+
+        # 7. 계좌 잔액 반영
+        acc.current_balance += amount
+        acc.save()
+
+
+
+    else:
+        return Response({'error': '알 수 없는 상품 타입'}, status=400)
+
+    return Response({'message': '계좌 생성 및 상품 가입 완료'})
+
+# 누적 이자를 주기적으로 계산해서 DB에도 반영되고
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def update_interest(request):
+    user = request.user
+
+    updated_accounts = []
+
+    for acc in user.accounts.all():
+        if hasattr(acc, 'deposit_detail'):
+            acc.deposit_detail.update_hourly_interest()
+            updated_accounts.append(f"예금 - {acc.account_number}")
+
+        if hasattr(acc, 'savings_detail'):
+            acc.savings_detail.update_hourly_interest()
+            updated_accounts.append(f"적금 - {acc.account_number}")
+
+    return Response({
+        'message': '이자 업데이트 완료',
+        'updated_accounts': updated_accounts
+    })
+
+
+
+
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from .models import Account
+from .serializers import AccountInterestSerializer
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def my_interest_comparison(request):
+    accounts = request.user.accounts.all()
+
+    # ✅ 금리가 null이 아닌 계좌만 필터링
+    filtered_accounts = []
+    for acc in accounts:
+        rate = None
+        if hasattr(acc, 'savings_detail'):
+            rate = acc.savings_detail.interest_rate
+        elif hasattr(acc, 'deposit_detail'):
+            rate = acc.deposit_detail.interest_rate
+
+        if rate is not None:
+            filtered_accounts.append(acc)
+
+    serializer = AccountInterestSerializer(filtered_accounts, many=True)
+    base_rate = 2.75 # 기준금리
+
+    return Response({
+        'base_rate': base_rate,
+        'my_accounts': serializer.data
+    })
 
 
 
@@ -138,144 +326,3 @@ def calendar_dates(request):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-################################## 로그인 ##################################
-
-# @api_view(['POST'])
-# def login(request):
-#     serializer = LoginSerializer(data=request.data)
-#     if serializer.is_valid():
-#         user = serializer.validated_data["user"]
-
-#         # 여기서 토큰 생성 or 조회
-#         token, created = Token.objects.get_or_create(user=user)
-
-#         return Response({
-#             "message": "로그인 성공!",
-#             "user": {
-#                 "username": user.username,
-#                 "email": user.email,
-#             },
-#             # 프론트가 저장해서 로그인 상태 유지 가능
-#             "token": token.key
-#         }, status=status.HTTP_200_OK)
-    
-#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-# ################################## 로그아웃 ##################################
-
-# @api_view(['POST'])
-# @permission_classes([IsAuthenticated])
-# def logout(request):
-#     request.user.auth_token.delete()  # ✅ 토큰 삭제
-#     return Response({"message": "로그아웃 되었습니다."}, status=status.HTTP_200_OK)
-
-
-# # def logout(request):
-# #     auth_logout(request)
-# #     return redirect('articles:index')
-
-
-# ################################## 회원 탈퇴 ##################################
-
-# @api_view(['DELETE'])
-# @permission_classes([IsAuthenticated])
-# # 비활성화 방식의 탈퇴
-# def delete_user(request):
-#     # 회원 탈퇴시 비밀번호 요구하기
-#     password = request.data.get('password')
-#     if not password:
-#         return Response({"detail": "비밀번호를 입력하세요."}, status=status.HTTP_400_BAD_REQUEST)
-
-#     if not request.user.check_password(password):
-#         return Response({"detail": "비밀번호가 틀렸습니다."}, status=status.HTTP_400_BAD_REQUEST)
-
-#     request.user.is_active = False
-#     request.user.save()
-
-#     # 토큰 삭제
-#     Token.objects.filter(user=request.user).delete()
-#     return Response({"detail": "회원 탈퇴가 완료되었습니다."}, status=status.HTTP_204_NO_CONTENT)
-
-
-
-# # def delete(request):
-# #     request.user.delete()
-# #     return redirect('articles:index')
-
-# ###################################
-
-# def update(request):
-#     if request.method == 'POST':
-#         form = CustomUserChangeForm(request.POST, instance=request.user)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('articles:index')
-#     else:
-#         form = CustomUserChangeForm(instance=request.user)
-#     context = {
-#         'form': form,
-#     }
-#     return render(request, 'accounts/update.html', context)
-
-
-# def change_password(request, user_pk):
-#     if request.method == 'POST':
-#         form = PasswordChangeForm(request.user, request.POST)
-#         if form.is_valid():
-#             user = form.save()
-#             update_session_auth_hash(request, user)
-#             return redirect('articles:index')
-#     else:
-#         form = PasswordChangeForm(request.user)
-#     context = {
-#         'form': form,
-#     }
-#     return render(request, 'accounts/change_password.html', context)
-
-
-# def profile(request, username):
-#     # username으로 어떤 유저인지 조회
-#     # get_user_model().objects.get(username=username)
-#     User = get_user_model()
-#     person = User.objects.get(username=username)
-#     context = {
-#         'person': person,
-#     }
-#     return render(request, 'accounts/profile.html', context)
-
-
-
-
-
-
-
-
-
-
-# def login(request):
-#     if request.user.is_authenticated:
-#         return redirect('articles:index')
-
-#     if request.method == 'POST':
-#         form = AuthenticationForm(request, request.POST)
-#         if form.is_valid():
-#             auth_login(request, form.get_user())
-#             return redirect('articles:index')
-#     else:
-#         form = AuthenticationForm()
-#     context = {
-#         'form': form,
-#     }
-#     return render(request, 'accounts/login.html', context)

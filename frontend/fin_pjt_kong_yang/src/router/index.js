@@ -7,9 +7,12 @@ import UpdateMyDataView from "@/views/UpdateMyDataView.vue";
 import ArticleCreateView from "@/views/ArticleCreateView.vue";
 import ArticleUpdateView from "@/views/ArticleUpdateView.vue";
 import ArticleList from "../components/ArticleList.vue";
-import ProductPageView from "@/views/ProductPageView.vue";
-import BankFinderView from "@/views/BankFinderView.vue";
-import ProductDetailView from "@/views/ProductDetailView.vue";
+import ProductPageView from '@/views/ProductPageView.vue'
+import BankFinderView from '@/views/BankFinderView.vue'
+import ProductDetailView from '@/views/ProductDetailView.vue'
+import SearchView from '@/views/SearchView.vue'
+import VideoDetailView from '@/views/VideoDetailView.vue'
+import LaterView from '@/views/LaterView.vue'
 
 // ✅ 로그인된 사용자가 회원가입 페이지에 접근하지 못하도록
 const requireNotLoggedIn = (to, from, next) => {
@@ -119,7 +122,10 @@ const router = createRouter({
       name: "Compare",
       component: () => import("@/views/CompareView.vue"),
     },
-  ],
-});
+      { path: '/search', name: 'Search', component: SearchView },
+      { path: '/video/:videoId', name: 'VideoDetail', component: VideoDetailView, props: true },
+      { path: '/Later', name: 'Later', component: LaterView },
+    ],
+})
 
 export default router;

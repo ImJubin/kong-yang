@@ -42,6 +42,10 @@ onMounted(() => {
     |
     <RouterLink :to="{ name: 'Compare' }" class="nav">지수 비교</RouterLink>
     <!-- ✅ 추가 -->
+     | 
+    <RouterLink :to="{name:'Search'}">Search</RouterLink>
+     | 
+    <RouterLink :to="{name:'Later'}">Later</RouterLink>
   </nav>
   <NavBar />
   <RouterView />

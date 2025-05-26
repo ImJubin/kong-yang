@@ -215,3 +215,23 @@ class AccountCreateSerializer(serializers.ModelSerializer):
             'bank_name', 'account_number', 'account_type',
             'current_balance', 'is_main', 'alias_name'
         ]
+
+
+from rest_framework import serializers
+from .models import Account
+
+class AccountInterestSerializer(serializers.ModelSerializer):
+    interest_rate = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Account
+        fields = ['bank_name', 'account_type', 'alias_name', 'interest_rate', 'account_number']
+
+    def get_interest_rate(self, obj):
+        # 적금
+        if hasattr(obj, 'savings_detail'):
+            return obj.savings_detail.interest_rate
+        # 예금
+        elif hasattr(obj, 'deposit_detail'):
+            return obj.deposit_detail.interest_rate
+        return None

@@ -189,10 +189,16 @@ class SavingsDetail(models.Model):
             self.save()
 
     def save(self, *args, **kwargs):
-        """저장 시 이자 계산 및 상태 업데이트 동시 수행"""
-        self.interest_total = self.calculate_interest()
+        if not self.interest_total or self.interest_total == 0:
+            self.interest_total = self.calculate_interest()
         self.update_delay_status()
         super().save(*args, **kwargs)
+
+    # def save(self, *args, **kwargs):
+    #     """저장 시 이자 계산 및 상태 업데이트 동시 수행"""
+    #     self.interest_total = self.calculate_interest()
+    #     self.update_delay_status()
+    #     super().save(*args, **kwargs)
 
 # 예금
 class DepositDetail(models.Model):
@@ -206,7 +212,9 @@ class DepositDetail(models.Model):
     interest_total = models.DecimalField(max_digits=18, decimal_places=2, default=0)
     interest_accumulated = models.DecimalField(max_digits=18, decimal_places=2, default=0)
     interest_last_updated = models.DateTimeField(auto_now_add=True)
-
+    def update_delay_status(self):
+        pass
+    
     def update_hourly_interest(self):
         """1시간마다 누적 이자를 계산하여 갱신"""
         now = timezone.now()
@@ -234,6 +242,7 @@ class DepositDetail(models.Model):
         return result.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
 
     def save(self, *args, **kwargs):
-        self.interest_total = self.calculate_interest()
+        if not self.interest_total or self.interest_total == 0:
+            self.interest_total = self.calculate_interest()
+        self.update_delay_status()
         super().save(*args, **kwargs)
-
