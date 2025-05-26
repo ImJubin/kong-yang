@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'users',
     'fin_products',
     'articles',
+    'commodities',
     # rest
     'rest_framework',
     # 로그인 유지를 위한 token
@@ -174,7 +175,7 @@ import environ
 
 BASE_DIR = Path(__file__).resolve().parent.parent  # ✅ manage.py가 있는 디렉토리
 env = environ.Env()
-environ.Env.read_env(BASE_DIR / '.env')
+environ.Env.read_env(str(BASE_DIR / '.env'))
 
 OPENAI_API_KEY = env('OPENAI_API_KEY')
 
