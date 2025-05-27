@@ -39,8 +39,8 @@
     - `router/`: Vue Router 설정 (`index.js`)
   - 주요 구현 기능:
     - 예적금 추천 카드 기반 UI 구성 (`ProductRecommendation.vue`, `PurchaseForm.vue`)
-    - 금/은/구리 실시간 시세 차트 및 날짜 필터링 (`CommodityChart.vue`)
-    - 만기일 달력 연동 (`MainCalendar.vue`), 사용자 계좌 목록 (`AccountOverview.vue`)
+    - 금/은/구리 실시간 시세 차트 및 날짜 조회 (`CommodityChart.vue`)
+    - 사용자 계좌 목록 (`AccountOverview.vue`)
     - 관심 종목 유튜브 검색 및 상세 재생 (`SearchView.vue`, `VideoDetailView.vue`)
     - 카카오맵 기반 은행/ATM 검색 (`MapSearch.vue`, `BankFinderView.vue`)
     - 게시글/댓글/좋아요 기능 포함 커뮤니티 구현 (`ArticleCreateView.vue`, `CommentList.vue`)
@@ -70,9 +70,9 @@
 
 ## III. 데이터베이스 모델링(ERD)
 
-> 📌 ERD 예시  
-> ![ERD](./assets/ERD_0526.png)
-> )
+###📌 ERD
+
+![ERD](./assets/erd.png)
 
 ## III. 데이터베이스 모델링(ERD)
 
