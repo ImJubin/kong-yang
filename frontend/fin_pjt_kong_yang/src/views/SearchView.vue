@@ -76,14 +76,6 @@ const onSearch = async () => {
   transition: all 0.2s ease;
 }
 
-.search-page {
-  /* padding: 20px; */
-}
-
-.search-bar {
-  /* margin-bottom: 20px; */
-}
-
 .search-input {
   padding: 8px;
   padding-left:15px;

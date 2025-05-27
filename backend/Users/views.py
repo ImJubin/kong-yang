@@ -41,9 +41,9 @@ from users.serializers import CustomUserDetailsSerializer
 class CustomUserDetailsView(UserDetailsView):
     serializer_class = CustomUserDetailsSerializer
 
-print("✅ CustomUserDetailsView serializer:", CustomUserDetailsView.serializer_class)
+print("CustomUserDetailsView serializer:", CustomUserDetailsView.serializer_class)
 
-print("📦 현재 사용 중인 시리얼라이저:", UserDetailsView.serializer_class)
+print("현재 사용 중인 시리얼라이저:", UserDetailsView.serializer_class)
 
 
 from .models import Account

@@ -169,19 +169,6 @@ FSS_API_KEY = config("FSS_API_KEY")
 
 
 
-
-# from pathlib import Path
-# import environ
-
-# BASE_DIR = Path(__file__).resolve().parent.parent  # ✅ manage.py가 있는 디렉토리
-# env = environ.Env()
-# environ.Env.read_env(BASE_DIR / '.env')
-
-# OPENAI_API_KEY = env('OPENAI_API_KEY')
-
-
-
-
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
 ]
@@ -189,5 +176,5 @@ CORS_ALLOWED_ORIGINS = [
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'users.serializers.CustomUserDetailsSerializer',
 }
-print("🟢 settings.py loaded!")
-print("🟢 REST_AUTH_SERIALIZERS =", REST_AUTH_SERIALIZERS)
+print("settings.py loaded!")
+print("REST_AUTH_SERIALIZERS =", REST_AUTH_SERIALIZERS)

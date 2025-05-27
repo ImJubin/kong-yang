@@ -29,19 +29,20 @@ const handleLogoClick = () => {
         <li><RouterLink :to="{ name: 'Compare' }">지수 비교</RouterLink></li>
         <li><RouterLink :to="{ name: 'bankFinder' }">은행 위치 조회</RouterLink></li>
         <li><RouterLink :to="{ name: 'Search' }">자료 검색하기</RouterLink></li>
+        <li><RouterLink :to="{ name: 'ArticleList' }">게시판</RouterLink></li>
         <li v-if="userStore.user"><RouterLink :to="{ name: 'MyPage' }">마이페이지</RouterLink></li>
       </ul>
 
       <!-- ✅ 로그인 영역 -->
       <div class="auth">
-        <template v-if="userStore.user">
+        <div class = "login-nav" v-if="userStore.user">
           <span>{{ userStore.user.first_name }}님</span>
           <button @click="userStore.logOut">로그아웃</button>
-        </template>
-        <template v-else>
+        </div>
+        <div v-else>
           <RouterLink :to="{ name: 'SignUp' }">회원가입</RouterLink>
           <RouterLink :to="{ name: 'Login' }">로그인</RouterLink>
-        </template>
+        </div>
       </div>
     </nav>
   </div>
@@ -84,6 +85,9 @@ const handleLogoClick = () => {
   display: flex;
   align-items: center;
   gap: 1rem;
+}
+.auth>.login-nav{
+  margin-top:-30px;
 }
 
 .auth button {

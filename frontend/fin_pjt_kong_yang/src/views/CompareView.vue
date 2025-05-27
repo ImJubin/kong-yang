@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4">
+  <div class="compare-view">
     <h2 class="text-xl font-bold mb-4">📊 상품 시세 비교</h2>
 
     <select v-model="selected" @change="updateChart">
@@ -49,5 +49,9 @@ select {
   font-size: 1rem;
   margin-bottom: 1rem;
   border: 1px solid #ccc;
+}
+.compare-view{
+  width:1200px;
+  margin: 30px auto;
 }
 </style>

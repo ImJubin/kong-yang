@@ -21,13 +21,18 @@ onMounted(() => {
 
 <template>
   <div>
-    <h1>홈</h1>
-      <div>
-    <h1>게시글 목록 페이지</h1>
-    <RouterLink :to="{ name: 'create' }">[게시글생성]</RouterLink>
+    <RouterLink :to="{ name: 'create' }">게시글 생성하기</RouterLink>
     <ArticleList />
   </div>
-    <p v-if="userStore.user">👋 {{ userStore.user.first_name }}님 환영합니다!</p>
-    <p v-else>로그인 해주세요</p>
-  </div>
+
 </template>
+<style scoped>
+div{
+  width: 1200px;
+  margin: 30px auto;
+}
+a{
+  display: block;
+  text-align: right;
+}
+</style>

@@ -1,0 +1,452 @@
+[
+  {
+    "model": "commodities.commodityprice",
+    "pk": 1,
+    "fields": {
+      "name": "Gold",
+      "symbol": "GLD",
+      "price": 309.72,
+      "timestamp": "2025-05-26T10:29:26.864905Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 2,
+    "fields": {
+      "name": "Gold",
+      "symbol": "GLD",
+      "price": 310.18,
+      "timestamp": "2025-05-26T10:29:26.868299Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 3,
+    "fields": {
+      "name": "Gold",
+      "symbol": "GLD",
+      "price": 310.17,
+      "timestamp": "2025-05-26T10:29:26.869015Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 4,
+    "fields": {
+      "name": "Gold",
+      "symbol": "GLD",
+      "price": 310.04,
+      "timestamp": "2025-05-26T10:29:26.869709Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 5,
+    "fields": {
+      "name": "Gold",
+      "symbol": "GLD",
+      "price": 309.74,
+      "timestamp": "2025-05-26T10:29:26.870326Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 6,
+    "fields": {
+      "name": "Silver",
+      "symbol": "SLV",
+      "price": 30.36,
+      "timestamp": "2025-05-26T10:29:27.025020Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 7,
+    "fields": {
+      "name": "Silver",
+      "symbol": "SLV",
+      "price": 30.41,
+      "timestamp": "2025-05-26T10:29:27.029003Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 8,
+    "fields": {
+      "name": "Silver",
+      "symbol": "SLV",
+      "price": 30.47,
+      "timestamp": "2025-05-26T10:29:27.030182Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 9,
+    "fields": {
+      "name": "Silver",
+      "symbol": "SLV",
+      "price": 30.47,
+      "timestamp": "2025-05-26T10:29:27.031197Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 10,
+    "fields": {
+      "name": "Silver",
+      "symbol": "SLV",
+      "price": 30.44,
+      "timestamp": "2025-05-26T10:29:27.032058Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 11,
+    "fields": {
+      "name": "Copper",
+      "symbol": "CPER",
+      "price": 30.09,
+      "timestamp": "2025-05-26T10:29:27.195405Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 12,
+    "fields": {
+      "name": "Copper",
+      "symbol": "CPER",
+      "price": 30.31,
+      "timestamp": "2025-05-26T10:29:27.197014Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 13,
+    "fields": {
+      "name": "Copper",
+      "symbol": "CPER",
+      "price": 30.43,
+      "timestamp": "2025-05-26T10:29:27.198189Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 14,
+    "fields": {
+      "name": "Copper",
+      "symbol": "CPER",
+      "price": 30.37,
+      "timestamp": "2025-05-26T10:29:27.199461Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 15,
+    "fields": {
+      "name": "Copper",
+      "symbol": "CPER",
+      "price": 30.36,
+      "timestamp": "2025-05-26T10:29:27.200613Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 16,
+    "fields": {
+      "name": "Gold",
+      "symbol": "GLD",
+      "price": 309.72,
+      "timestamp": "2025-05-27T10:26:01.148523Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 17,
+    "fields": {
+      "name": "Gold",
+      "symbol": "GLD",
+      "price": 310.18,
+      "timestamp": "2025-05-27T10:26:01.154051Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 18,
+    "fields": {
+      "name": "Gold",
+      "symbol": "GLD",
+      "price": 310.17,
+      "timestamp": "2025-05-27T10:26:01.154611Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 19,
+    "fields": {
+      "name": "Gold",
+      "symbol": "GLD",
+      "price": 310.04,
+      "timestamp": "2025-05-27T10:26:01.155215Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 20,
+    "fields": {
+      "name": "Gold",
+      "symbol": "GLD",
+      "price": 309.74,
+      "timestamp": "2025-05-27T10:26:01.155771Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 21,
+    "fields": {
+      "name": "Silver",
+      "symbol": "SLV",
+      "price": 30.36,
+      "timestamp": "2025-05-27T10:26:01.329508Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 22,
+    "fields": {
+      "name": "Silver",
+      "symbol": "SLV",
+      "price": 30.41,
+      "timestamp": "2025-05-27T10:26:01.331051Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 23,
+    "fields": {
+      "name": "Silver",
+      "symbol": "SLV",
+      "price": 30.47,
+      "timestamp": "2025-05-27T10:26:01.332160Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 24,
+    "fields": {
+      "name": "Silver",
+      "symbol": "SLV",
+      "price": 30.47,
+      "timestamp": "2025-05-27T10:26:01.333025Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 25,
+    "fields": {
+      "name": "Silver",
+      "symbol": "SLV",
+      "price": 30.44,
+      "timestamp": "2025-05-27T10:26:01.333832Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 26,
+    "fields": {
+      "name": "Copper",
+      "symbol": "CPER",
+      "price": 30.09,
+      "timestamp": "2025-05-27T10:26:01.490913Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 27,
+    "fields": {
+      "name": "Copper",
+      "symbol": "CPER",
+      "price": 30.31,
+      "timestamp": "2025-05-27T10:26:01.492312Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 28,
+    "fields": {
+      "name": "Copper",
+      "symbol": "CPER",
+      "price": 30.43,
+      "timestamp": "2025-05-27T10:26:01.493346Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 29,
+    "fields": {
+      "name": "Copper",
+      "symbol": "CPER",
+      "price": 30.37,
+      "timestamp": "2025-05-27T10:26:01.494339Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 30,
+    "fields": {
+      "name": "Copper",
+      "symbol": "CPER",
+      "price": 30.36,
+      "timestamp": "2025-05-27T10:26:01.495280Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 31,
+    "fields": {
+      "name": "Gold",
+      "symbol": "GLD",
+      "price": 309.72,
+      "timestamp": "2025-05-27T10:53:40.857650Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 32,
+    "fields": {
+      "name": "Gold",
+      "symbol": "GLD",
+      "price": 310.18,
+      "timestamp": "2025-05-27T10:53:40.869083Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 33,
+    "fields": {
+      "name": "Gold",
+      "symbol": "GLD",
+      "price": 310.17,
+      "timestamp": "2025-05-27T10:53:40.869790Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 34,
+    "fields": {
+      "name": "Gold",
+      "symbol": "GLD",
+      "price": 310.04,
+      "timestamp": "2025-05-27T10:53:40.870523Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 35,
+    "fields": {
+      "name": "Gold",
+      "symbol": "GLD",
+      "price": 309.74,
+      "timestamp": "2025-05-27T10:53:40.871139Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 36,
+    "fields": {
+      "name": "Silver",
+      "symbol": "SLV",
+      "price": 30.36,
+      "timestamp": "2025-05-27T10:53:41.047017Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 37,
+    "fields": {
+      "name": "Silver",
+      "symbol": "SLV",
+      "price": 30.41,
+      "timestamp": "2025-05-27T10:53:41.048467Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 38,
+    "fields": {
+      "name": "Silver",
+      "symbol": "SLV",
+      "price": 30.47,
+      "timestamp": "2025-05-27T10:53:41.049533Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 39,
+    "fields": {
+      "name": "Silver",
+      "symbol": "SLV",
+      "price": 30.47,
+      "timestamp": "2025-05-27T10:53:41.050500Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 40,
+    "fields": {
+      "name": "Silver",
+      "symbol": "SLV",
+      "price": 30.44,
+      "timestamp": "2025-05-27T10:53:41.051511Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 41,
+    "fields": {
+      "name": "Copper",
+      "symbol": "CPER",
+      "price": 30.09,
+      "timestamp": "2025-05-27T10:53:41.225336Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 42,
+    "fields": {
+      "name": "Copper",
+      "symbol": "CPER",
+      "price": 30.31,
+      "timestamp": "2025-05-27T10:53:41.226933Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 43,
+    "fields": {
+      "name": "Copper",
+      "symbol": "CPER",
+      "price": 30.43,
+      "timestamp": "2025-05-27T10:53:41.228310Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 44,
+    "fields": {
+      "name": "Copper",
+      "symbol": "CPER",
+      "price": 30.37,
+      "timestamp": "2025-05-27T10:53:41.229691Z"
+    }
+  },
+  {
+    "model": "commodities.commodityprice",
+    "pk": 45,
+    "fields": {
+      "name": "Copper",
+      "symbol": "CPER",
+      "price": 30.36,
+      "timestamp": "2025-05-27T10:53:41.231077Z"
+    }
+  }
+]

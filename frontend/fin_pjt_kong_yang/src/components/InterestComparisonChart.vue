@@ -1,6 +1,5 @@
 <template>
-  <div class="p-6">
-    <h2 class="text-xl font-bold mb-4">📊 내 계좌 금리 vs 기준금리</h2>
+  <div class="chart">
     <Bar
         v-if="chartData.labels.length"
         :data="chartData"
@@ -33,7 +32,7 @@ const chartData = ref({
 
 const chartOptions = {
   responsive: true,
-  indexAxis: 'y',  // 👉 가로 막대 설정
+  indexAxis: 'y',
   interaction: {
     mode: 'nearest',
     axis: 'y',
@@ -87,22 +86,22 @@ onMounted(async () => {
 
   const validAccounts = accounts.filter(acc => isValidRate(acc.interest_rate))
 
-  // ✅ 금리 높은 순 정렬
+  // 금리 순 정렬
   const sortedAccounts = [...validAccounts].sort((a, b) => b.interest_rate - a.interest_rate)
 
-  // ✅ 라벨: 상품명 + 계좌번호
+  // 상품명 + 계좌번호
   const labels = ['기준금리'].concat(
   sortedAccounts.map(acc => {
-    // 1. 별칭 우선
+    // 별칭 우선
     if (acc.alias_name) return acc.alias_name
 
-    // 2. 상품명 가져오기
+    // 상품명
     const productName =
       acc.account_type === '적금'
         ? acc.savings_detail?.product_name
         : acc.deposit_detail?.product_name
 
-    // 3. 상품명 + 계좌번호 or 계좌번호만
+    // 상품명 + 계좌번호 or 계좌번호만
     if (productName) {
       return `${productName} (${acc.account_number})`
     } else {
@@ -121,17 +120,28 @@ onMounted(async () => {
         label: '금리',
         data: data,
         backgroundColor: [
-          '#f9e233',  // 기준금리 색상
-          ...Array(sortedAccounts.length).fill('#888')  // 상품들 색상
+          '#FDC200',
+          ...Array(sortedAccounts.length).fill('#aaa')  // 상품들 색상
         ],
         barThickness: 30 
       }
     ]
   }
 
-  console.log('📦 응답:', res.data)
-  console.log('📦 유효한 계좌:', sortedAccounts)
-  console.log('📊 차트 라벨:', chartData.value.labels)
-  console.log('📊 차트 데이터:', chartData.value.datasets[0].data)
+  // console.log('응답:', res.data)
+  // console.log('유효한 계좌:', sortedAccounts)
+  // console.log('차트 라벨:', chartData.value.labels)
+  // console.log('차트 데이터:', chartData.value.datasets[0].data)
 })
 </script>
+<style scoped>
+  .chart{
+    border:1px solid #eee;
+    border-radius: 15px;
+    padding:15px;
+    box-shadow: 0 2px 5px rgba(170, 170, 170, 0.1);
+    margin-right: 15px;
+    height:700px;
+  }
+  
+</style>

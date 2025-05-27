@@ -273,20 +273,25 @@ const getDistance = (lat1, lng1, lat2, lng2) => {
 <style scoped>
 .filter-button{
   margin-top:25px;
+  margin-bottom: 25px;
 }
 .filter-button>button{
   border:none;
   background-color: #fff;
   padding:20px 50px;
-  border-bottom:1px solid #FFD014;
+  color:#aaa;
+  /* border-bottom:1px solid #FFD014; */
   transition: all 0.2s ease;
 }
 .filter-button>button:hover{
-  background-color: #FFD014;
+  /* background-color: #FFD014; */
+  border-bottom:3px solid #FFD014;
+  color: #333;
   transition: all 0.2s ease;
 }
 .filter-button > button.active {
-  background-color: #FFD014;
+  border-bottom:3px solid #FFD014;
+  /* background-color: #FFD014; */
   color: #333;
   font-weight: bold;
 }
@@ -295,7 +300,7 @@ const getDistance = (lat1, lng1, lat2, lng2) => {
   margin-top:25px;
 }
 select{
-  border:1px dashed red;
+  /* border:1px dashed red; */
   width:300px;
   height:40px;
   border:1px solid #aaa;

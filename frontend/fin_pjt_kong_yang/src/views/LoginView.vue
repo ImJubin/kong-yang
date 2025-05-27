@@ -10,7 +10,7 @@ const router = useRouter()
 const userStore = useUserStore()
 
 const logIn = async () => {
-  errorMsg.value = '' // 에러 초기화
+  errorMsg.value = '' 
 
   if (!username.value || !password.value) {
     errorMsg.value = '아이디와 비밀번호를 모두 입력해주세요.'
@@ -22,7 +22,7 @@ const logIn = async () => {
       username: username.value,
       password: password.value
     })
-    // 로그인 성공 → 이동은 store 안에서 처리됨
+    // 로그인 성공 
   } catch (err) {
     errorMsg.value = '아이디 또는 비밀번호가 일치하지 않습니다.'
     console.error(err)

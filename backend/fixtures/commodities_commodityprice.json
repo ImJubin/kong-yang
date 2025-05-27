@@ -1,0 +1,317 @@
+[
+  {
+    "id":1,
+    "name":"Gold",
+    "symbol":"GLD",
+    "price":309.72,
+    "timestamp":"2025-05-26 10:29:26.864905"
+  },
+  {
+    "id":2,
+    "name":"Gold",
+    "symbol":"GLD",
+    "price":310.18,
+    "timestamp":"2025-05-26 10:29:26.868299"
+  },
+  {
+    "id":3,
+    "name":"Gold",
+    "symbol":"GLD",
+    "price":310.17,
+    "timestamp":"2025-05-26 10:29:26.869015"
+  },
+  {
+    "id":4,
+    "name":"Gold",
+    "symbol":"GLD",
+    "price":310.04,
+    "timestamp":"2025-05-26 10:29:26.869709"
+  },
+  {
+    "id":5,
+    "name":"Gold",
+    "symbol":"GLD",
+    "price":309.74,
+    "timestamp":"2025-05-26 10:29:26.870326"
+  },
+  {
+    "id":6,
+    "name":"Silver",
+    "symbol":"SLV",
+    "price":30.36,
+    "timestamp":"2025-05-26 10:29:27.025020"
+  },
+  {
+    "id":7,
+    "name":"Silver",
+    "symbol":"SLV",
+    "price":30.41,
+    "timestamp":"2025-05-26 10:29:27.029003"
+  },
+  {
+    "id":8,
+    "name":"Silver",
+    "symbol":"SLV",
+    "price":30.47,
+    "timestamp":"2025-05-26 10:29:27.030182"
+  },
+  {
+    "id":9,
+    "name":"Silver",
+    "symbol":"SLV",
+    "price":30.47,
+    "timestamp":"2025-05-26 10:29:27.031197"
+  },
+  {
+    "id":10,
+    "name":"Silver",
+    "symbol":"SLV",
+    "price":30.44,
+    "timestamp":"2025-05-26 10:29:27.032058"
+  },
+  {
+    "id":11,
+    "name":"Copper",
+    "symbol":"CPER",
+    "price":30.09,
+    "timestamp":"2025-05-26 10:29:27.195405"
+  },
+  {
+    "id":12,
+    "name":"Copper",
+    "symbol":"CPER",
+    "price":30.31,
+    "timestamp":"2025-05-26 10:29:27.197014"
+  },
+  {
+    "id":13,
+    "name":"Copper",
+    "symbol":"CPER",
+    "price":30.43,
+    "timestamp":"2025-05-26 10:29:27.198189"
+  },
+  {
+    "id":14,
+    "name":"Copper",
+    "symbol":"CPER",
+    "price":30.37,
+    "timestamp":"2025-05-26 10:29:27.199461"
+  },
+  {
+    "id":15,
+    "name":"Copper",
+    "symbol":"CPER",
+    "price":30.36,
+    "timestamp":"2025-05-26 10:29:27.200613"
+  },
+  {
+    "id":16,
+    "name":"Gold",
+    "symbol":"GLD",
+    "price":309.72,
+    "timestamp":"2025-05-27 10:26:01.148523"
+  },
+  {
+    "id":17,
+    "name":"Gold",
+    "symbol":"GLD",
+    "price":310.18,
+    "timestamp":"2025-05-27 10:26:01.154051"
+  },
+  {
+    "id":18,
+    "name":"Gold",
+    "symbol":"GLD",
+    "price":310.17,
+    "timestamp":"2025-05-27 10:26:01.154611"
+  },
+  {
+    "id":19,
+    "name":"Gold",
+    "symbol":"GLD",
+    "price":310.04,
+    "timestamp":"2025-05-27 10:26:01.155215"
+  },
+  {
+    "id":20,
+    "name":"Gold",
+    "symbol":"GLD",
+    "price":309.74,
+    "timestamp":"2025-05-27 10:26:01.155771"
+  },
+  {
+    "id":21,
+    "name":"Silver",
+    "symbol":"SLV",
+    "price":30.36,
+    "timestamp":"2025-05-27 10:26:01.329508"
+  },
+  {
+    "id":22,
+    "name":"Silver",
+    "symbol":"SLV",
+    "price":30.41,
+    "timestamp":"2025-05-27 10:26:01.331051"
+  },
+  {
+    "id":23,
+    "name":"Silver",
+    "symbol":"SLV",
+    "price":30.47,
+    "timestamp":"2025-05-27 10:26:01.332160"
+  },
+  {
+    "id":24,
+    "name":"Silver",
+    "symbol":"SLV",
+    "price":30.47,
+    "timestamp":"2025-05-27 10:26:01.333025"
+  },
+  {
+    "id":25,
+    "name":"Silver",
+    "symbol":"SLV",
+    "price":30.44,
+    "timestamp":"2025-05-27 10:26:01.333832"
+  },
+  {
+    "id":26,
+    "name":"Copper",
+    "symbol":"CPER",
+    "price":30.09,
+    "timestamp":"2025-05-27 10:26:01.490913"
+  },
+  {
+    "id":27,
+    "name":"Copper",
+    "symbol":"CPER",
+    "price":30.31,
+    "timestamp":"2025-05-27 10:26:01.492312"
+  },
+  {
+    "id":28,
+    "name":"Copper",
+    "symbol":"CPER",
+    "price":30.43,
+    "timestamp":"2025-05-27 10:26:01.493346"
+  },
+  {
+    "id":29,
+    "name":"Copper",
+    "symbol":"CPER",
+    "price":30.37,
+    "timestamp":"2025-05-27 10:26:01.494339"
+  },
+  {
+    "id":30,
+    "name":"Copper",
+    "symbol":"CPER",
+    "price":30.36,
+    "timestamp":"2025-05-27 10:26:01.495280"
+  },
+  {
+    "id":31,
+    "name":"Gold",
+    "symbol":"GLD",
+    "price":309.72,
+    "timestamp":"2025-05-27 10:53:40.857650"
+  },
+  {
+    "id":32,
+    "name":"Gold",
+    "symbol":"GLD",
+    "price":310.18,
+    "timestamp":"2025-05-27 10:53:40.869083"
+  },
+  {
+    "id":33,
+    "name":"Gold",
+    "symbol":"GLD",
+    "price":310.17,
+    "timestamp":"2025-05-27 10:53:40.869790"
+  },
+  {
+    "id":34,
+    "name":"Gold",
+    "symbol":"GLD",
+    "price":310.04,
+    "timestamp":"2025-05-27 10:53:40.870523"
+  },
+  {
+    "id":35,
+    "name":"Gold",
+    "symbol":"GLD",
+    "price":309.74,
+    "timestamp":"2025-05-27 10:53:40.871139"
+  },
+  {
+    "id":36,
+    "name":"Silver",
+    "symbol":"SLV",
+    "price":30.36,
+    "timestamp":"2025-05-27 10:53:41.047017"
+  },
+  {
+    "id":37,
+    "name":"Silver",
+    "symbol":"SLV",
+    "price":30.41,
+    "timestamp":"2025-05-27 10:53:41.048467"
+  },
+  {
+    "id":38,
+    "name":"Silver",
+    "symbol":"SLV",
+    "price":30.47,
+    "timestamp":"2025-05-27 10:53:41.049533"
+  },
+  {
+    "id":39,
+    "name":"Silver",
+    "symbol":"SLV",
+    "price":30.47,
+    "timestamp":"2025-05-27 10:53:41.050500"
+  },
+  {
+    "id":40,
+    "name":"Silver",
+    "symbol":"SLV",
+    "price":30.44,
+    "timestamp":"2025-05-27 10:53:41.051511"
+  },
+  {
+    "id":41,
+    "name":"Copper",
+    "symbol":"CPER",
+    "price":30.09,
+    "timestamp":"2025-05-27 10:53:41.225336"
+  },
+  {
+    "id":42,
+    "name":"Copper",
+    "symbol":"CPER",
+    "price":30.31,
+    "timestamp":"2025-05-27 10:53:41.226933"
+  },
+  {
+    "id":43,
+    "name":"Copper",
+    "symbol":"CPER",
+    "price":30.43,
+    "timestamp":"2025-05-27 10:53:41.228310"
+  },
+  {
+    "id":44,
+    "name":"Copper",
+    "symbol":"CPER",
+    "price":30.37,
+    "timestamp":"2025-05-27 10:53:41.229691"
+  },
+  {
+    "id":45,
+    "name":"Copper",
+    "symbol":"CPER",
+    "price":30.36,
+    "timestamp":"2025-05-27 10:53:41.231077"
+  }
+]

@@ -1,44 +1,24 @@
-<script setup>
-import { ref } from "vue";
-import { useUserStore } from '@/stores/user'
-import AccountOverview from '@/components/AccountOverview.vue'
-import InterestComparisonChart from '@/components/InterestComparisonChart.vue'
-import AccountAddForm from '@/components/AccountAddForm.vue'  // 계좌 추가 폼 컴포넌트
-const userStore = useUserStore()
-// const user = userStore.user
-// ✅ 토글 상태 변수
-const showAccountForm = ref(false)
-
-const handleDelete = () => {
-  if (confirm('정말 탈퇴하시겠어요?')) {
-    userStore.deleteUser()
-  }
-}
-</script>
-
 <template>
-  <div class="mypage-container">
-    <h1>🧑 마이페이지</h1>
-
+  <div id="mypage-container">
+    
     <div v-if="userStore.user">
-      <ul>
-        <li><strong>아이디:</strong> {{ userStore.user.username }}</li>
-        <li><strong>이메일:</strong> {{ userStore.user.email }}</li>
-        <li><strong>이름:</strong> {{ userStore.user.first_name }} {{ userStore.user.last_name }}</li>
-        <li><strong>전화번호:</strong> {{ userStore.user.phone_number }}</li>
-        <li><strong>회원 번호 (pk):</strong> {{ userStore.user.pk }}</li>
-      </ul>
-       <!-- 🔘 계좌 추가 폼 토글 버튼 -->
-      <button @click="showAccountForm = !showAccountForm">
-        {{ showAccountForm ? '계좌 추가 폼 닫기' : '➕ 계좌 추가' }}
-      </button>
-
-      <!-- 📄 토글된 경우에만 폼 보여주기 -->
-      <AccountAddForm v-if="showAccountForm" />
-
-      <AccountOverview />
-      <InterestComparisonChart />
-      <button @click="handleDelete">회원 탈퇴</button>
+      <div class = "profile">
+        <div class = "profile-name">
+      <p class = "user-name">{{ userStore.user.username }}</p>
+      <h1 class = "hello"><span class = "name">{{ userStore.user.last_name }} {{ userStore.user.first_name }}</span> 님 안녕하세요!</h1>
+      
+      <div class = "user-info">
+        <p>{{ userStore.user.email }}</p>
+        <p>{{ userStore.user.phone_number }}</p>
+      </div>
+        <p><RouterLink :to="{ name: 'UpdateMyData' }" class = "change">회원 정보 수정</RouterLink></p>
+      </div>
+    </div>
+      <div class = "my-pages">
+        <InterestComparisonChart />
+        <AccountOverview />
+      </div>
+      <button class = "delete" @click="handleDelete">회원 탈퇴</button>
 
 
     </div>
@@ -49,13 +29,51 @@ const handleDelete = () => {
   </div>
 </template>
 
+
+<script setup>
+import { ref } from "vue";
+import { useUserStore } from '@/stores/user'
+import AccountOverview from '@/components/AccountOverview.vue'
+import InterestComparisonChart from '@/components/InterestComparisonChart.vue'
+
+const userStore = useUserStore()
+const showAccountForm = ref(false)
+
+const handleDelete = () => {
+  if (confirm('정말 탈퇴하시겠어요?')) {
+    userStore.deleteUser()
+  }
+}
+</script>
+
 <style scoped>
-.mypage-container {
-  max-width: 500px;
-  margin: 2rem auto;
-  padding: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+#mypage-container {
+  width:1200px;
+  margin: 30px auto;
+}
+.delete{
+  color:red;
+  background-color: #fff;
+  border:none;
+  /* border-bottom:1px solid red; */
+  font-size:16px;
+}
+.user-name{
+  color:#aaa;
+  font-weight: 600;
+  text-indent: 5px;;
+}
+.hello{
+  font-size:28px;
+}
+.name{
+  font-size:32px;
+}
+.my-pages{
+  display:flex;
+}
+.account-overview{
+  width:70%;
 }
 ul {
   list-style: none;
@@ -67,5 +85,31 @@ li {
 strong {
   display: inline-block;
   width: 120px;
+}
+.profile{
+  display: relative;
+  margin-bottom:20px;
+  width:100%
+}
+.user-info{
+  position: absolute;
+  bottom:0%;
+  left:29%;
+
+}
+.user-info>p{
+  display: inline-block;
+  color:#888;
+  
+}
+.change{
+  position: absolute;
+  bottom:0%;
+  right:0%
+
+}
+.profile-name{
+  position: relative;
+  width:100%;
 }
 </style>

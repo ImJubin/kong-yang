@@ -62,8 +62,8 @@ onMounted(() => {
   padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 2.5rem; /* 카드 사이 간격 */
-  padding: 2rem; /* 전체 여백 */
+  gap: 2.5rem;
+  padding: 2rem; 
 }
 
 .article-card {
@@ -99,13 +99,13 @@ onMounted(() => {
   font-size: 1.2rem;
   font-weight: 700;
   color: #fdc200;
-  margin-bottom: 0.6rem; /* 여백 추가 → 이 값 늘려줘도 OK */
+  margin-bottom: 0.6rem; 
 }
 
 .button-group {
   display: flex;
   gap: 0.75rem;
-  margin-top: 1.25rem; /* 내용과 버튼 사이 여백 추가 */
+  margin-top: 1.25rem; 
 }
 
 button {

@@ -1,7 +1,44 @@
+<template>
+  <div v-if="video" id = "video-detail">
+    <iframe
+    width="560"
+    height="315"
+    :src="`https://www.youtube.com/embed/${videoId}`"
+    frameborder="0"
+    allowfullscreen
+    ></iframe>
+    
+    <h2 class = "video-title">{{ video.snippet.title }}</h2>
+    <div class = "description_sub">
+      <div class = "left">
+      <p class="publishedAt">게시 시간 : {{ video.snippet.publishedAt }}</p>
+      <p class="channelTitle">게시자 : {{ video.snippet.channelTitle }}</p>
+      </div>
+      <div class = "right">
+      <button class = "save-button" @click="toggleSave"
+      v-if="userStore.isLoggedIn">
+        {{ isSaved ? '저장 취소' : '저장 하기' }}
+      </button>
+      </div>
+    </div>
+    <div class = "line"></div>
+    <p class="description">{{ video.snippet.description }}</p>
+
+  </div>
+
+  <div v-else>
+    <p>로딩 중...</p>
+  </div>
+</template>
+
+
 <script setup>
 import { useRoute } from 'vue-router'
 import { useYoutubeStore } from '@/stores/YoutubeStore.js'
 import { onMounted, computed, ref } from 'vue'
+import { useUserStore } from '@/stores/user'
+
+const userStore = useUserStore()
 
 const route = useRoute()
 const store = useYoutubeStore()
@@ -26,7 +63,7 @@ onMounted(async () => {
 })
 
 // 저장 토글
-function toggleSave() {
+const toggleSave = function () {
     console.log(video)
   if (!video.value) return
   const videoData = { ...video.value, id: videoId }
@@ -38,37 +75,7 @@ function toggleSave() {
 }
 </script>
 
-<template>
-  <div v-if="video" id = "video-detail">
-    <iframe
-    width="560"
-    height="315"
-    :src="`https://www.youtube.com/embed/${videoId}`"
-    frameborder="0"
-    allowfullscreen
-    ></iframe>
-    
-    <h2 class = "video-title">{{ video.snippet.title }}</h2>
-    <div class = "description_sub">
-      <div class = "left">
-      <p class="publishedAt">게시 시간 : {{ video.snippet.publishedAt }}</p>
-      <p class="channelTitle">게시자 : {{ video.snippet.channelTitle }}</p>
-      </div>
-      <div class = "right">
-      <button class = "save-button" @click="toggleSave">
-        {{ isSaved ? '저장 취소' : '저장 하기' }}
-      </button>
-      </div>
-    </div>
-    <div class = "line"></div>
-    <p class="description">{{ video.snippet.description }}</p>
 
-  </div>
-
-  <div v-else>
-    <p>로딩 중...</p>
-  </div>
-</template>
 <style scoped>
 #video-detail{
   margin:50px auto;

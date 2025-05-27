@@ -1,3 +1,52 @@
+
+<template>
+  <form @submit.prevent="handleSubmit" class="mt-4 p-4 bg-white rounded shadow">
+    <h3 class="font-bold mb-2">새 계좌 등록</h3>
+
+    <!-- 기본 계좌 정보 -->
+    <div class="mb-2">
+      <label>은행명</label><br>
+      <input v-model="form.bank_name" required />
+    </div>
+
+    <div class="mb-2">
+      <label>계좌번호</label><br>
+      <input v-model="form.account_number" required />
+    </div>
+
+    <div class="mb-2"><br>
+  <label class="block text-sm font-medium">현재 잔액</label><br>
+  <input
+    type="number"
+    v-model="form.current_balance"
+    class="border p-2 w-full"
+    required
+  />
+</div>
+
+
+    <div class="mb-2">
+      <label>계좌 타입</label><br>
+      <select v-model="form.account_type" required>
+        <option value="예금">예금</option>
+        <option value="적금">적금</option>
+      </select>
+    </div>
+
+    <div class="mb-2">
+      <label>별칭 (선택)</label><br>
+      <input v-model="form.alias_name" />
+    </div>
+
+    <!-- 타입에 따라 디테일 입력 -->
+    <DepositDetailForm v-if="isDeposit" v-model="depositDetail" />
+    <SavingsDetailForm v-if="isSavings" v-model="savingsDetail" />
+
+    <button type="submit" class = "form-submit">
+      계좌 추가
+    </button>
+  </form>
+</template>
 <script setup>
 import { ref, computed } from 'vue'
 import { useAccountStore } from '@/stores/userAccount'
@@ -11,7 +60,7 @@ const form = ref({
   account_number: '',
   account_type: '예금',
   alias_name: '',
-  current_balance: 0,  // ✅ 추가
+  current_balance: 0,
 })
 
 
@@ -58,52 +107,41 @@ const handleSubmit = async () => {
 const isDeposit = computed(() => form.value.account_type === '예금')
 const isSavings = computed(() => form.value.account_type === '적금')
 </script>
+<style scoped>
+input{
+  padding:5px 10px;
+  width:500px;
+  height:35px;
+  margin-top:5px;
+  margin-bottom:15px;
+  border:1px solid #aaa;
+}
+select{
+  height:35px;
+  width:500px;
+  margin-top:5px;
+  margin-bottom:15px;
+  border:1px solid #aaa;
+  padding:5px 10px;
+}
 
-<template>
-  <form @submit.prevent="handleSubmit" class="mt-4 p-4 bg-white rounded shadow">
-    <h3 class="font-bold mb-2">새 계좌 등록</h3>
+.form-submit{
+  background-color: #555;
+  color:#fff;
+  /* margin-top: 20px; */
+  padding: 10px;
+  border: none;
+  border-radius: 3px;
+  width:100px;
+  /* height:px; */
+  margin-top:33px;
+  transition: all 0.2s ease;
 
-    <!-- 기본 계좌 정보 -->
-    <div class="mb-2">
-      <label>은행명</label>
-      <input v-model="form.bank_name" required />
-    </div>
+}
+.form-submit{
+  background-color: #ccc;
+  color: #333;
+  transition: all 0.2s ease;
+}
 
-    <div class="mb-2">
-      <label>계좌번호</label>
-      <input v-model="form.account_number" required />
-    </div>
-
-    <div class="mb-2">
-  <label class="block text-sm font-medium">현재 잔액</label>
-  <input
-    type="number"
-    v-model="form.current_balance"
-    class="border p-2 w-full"
-    required
-  />
-</div>
-
-
-    <div class="mb-2">
-      <label>계좌 타입</label>
-      <select v-model="form.account_type" required>
-        <option value="예금">예금</option>
-        <option value="적금">적금</option>
-      </select>
-    </div>
-
-    <div class="mb-2">
-      <label>별칭 (선택)</label>
-      <input v-model="form.alias_name" />
-    </div>
-
-    <!-- 타입에 따라 디테일 입력 -->
-    <DepositDetailForm v-if="isDeposit" v-model="depositDetail" />
-    <SavingsDetailForm v-if="isSavings" v-model="savingsDetail" />
-
-    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">
-      계좌 추가
-    </button>
-  </form>
-</template>
+</style>

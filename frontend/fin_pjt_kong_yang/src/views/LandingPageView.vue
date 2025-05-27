@@ -6,7 +6,7 @@
     <section class="text">
       <p class="catch">매일 쌓이는 <br> 당신의 <span class="text-yellow font-semibold">금융</span> 메이트</p>
       <div class= logo><img src="@/assets/logo_gray.svg"></div>
-      <button class="button">시작하기</button>
+      <!-- <button class="button">시작하기</button> -->
     </section>
 
     <!-- 카운트업 숫자 -->
@@ -58,8 +58,8 @@
     </div>
   </div>
 
-    <!-- 실물 자산산 정보 -->
-  <div class="landing3">
+    <!-- 실물 자산 정보 -->
+  <div class="landing5">
     <div class="landing3-text">
       <p class="subtext">안전자산 투자</p>
       <h2 class="maintext">
@@ -71,7 +71,7 @@
     </div>
   </div>
 
-    <!-- 검색색 정보 -->
+    <!-- 검색 정보 -->
   <div class="landing4">
     <div class="landing4-text">
       <p class="subtext">정보 검색</p>
@@ -138,7 +138,7 @@ onMounted(() => {
   width:100%;
   height:1024px;
   position: relative;
-  border:1px dashed blue;
+  /* border:1px dashed blue; */
   overflow: hidden;
 }
 .landing2{
@@ -234,7 +234,7 @@ section{
 }
 .landing3-text{
   width:1200px;
-  border:1px dashed red;
+  /* border:1px dashed red; */
   margin:0 auto;
   text-align: left;
   margin-top:83px;
@@ -263,7 +263,7 @@ section{
 .landing4{
   background-color: #eee;
   width:100%;
-  height:900px;
+  height:400px;
   position: relative;
   padding-top:83px;
 }
@@ -285,6 +285,9 @@ section{
 }
 .color-w{
   color:white;
+}
+.landing5{
+  height:300px;
 }
 
 

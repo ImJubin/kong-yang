@@ -1,10 +1,5 @@
 <template>
   <div class="product-card">
-    <!-- 추천 마크 -->
-    <div v-if="product.recommended" class="absolute top-2 right-2 bg-red-400 text-white px-2 rounded text-xs">
-      추천
-    </div>
-    
     <!-- 기본 정보 -->
     <div class="card-container">
       <div class="info-card">
@@ -15,7 +10,7 @@
         <h3 class="product-name">{{ product.fin_prdt_nm }}</h3>
         <p class="text-sm text-gray-600">{{ product.kor_co_nm }}</p>
           
-          <p><strong>예상 수익:</strong> {{ predictedProfit.toLocaleString() }}원</p>
+          <p class = "interest"><strong>예상 수익:</strong> {{ predictedProfit.toLocaleString() }}원</p>
         </div>
           <div class="card-content">
         
@@ -32,7 +27,7 @@
             <div v-if="product.options[0]?.rsrv_type_nm">적립유형</div>
           </div>
 
-          <!-- 데이터 반복 -->
+          <!-- 옵션 데이터 -->
           <div
             v-for="(opt, i) in product.options"
             :key="i"
@@ -45,34 +40,14 @@
             <div v-if="opt.rsrv_type_nm">{{ opt.rsrv_type_nm }}</div>
           </div>
         </div>
-</div>
+      </div>
 
+        <!-- 상세 페이지 이동 -->
         <button @click="goToDetail" class="corner-button">
           →
         </button>
-        <!-- <div class="corner-button">→</div> -->
       </div>
     </div>
-    
-
-    <!-- <p><strong>만기 후 이자율:</strong> {{ product.mtrt_int }}</p> -->
-    
-    <!-- 상품 상세 정보 -->
-    <!-- <div class="mt-2 text-sm text-gray-700 space-y-1">
-      <p><strong>공시월:</strong> {{ product.dcls_month }}</p> -->
-      <!-- <p><strong>금융회사 코드:</strong> {{ product.fin_co_no }}</p> -->
-      <!-- <p><strong>상품 코드:</strong> {{ product.fin_prdt_cd }}</p> -->
-      <!-- <p><strong>가입 방법:</strong> {{ product.join_way }}</p>
-      <p><strong>우대 조건:</strong> {{ product.spcl_cnd || '없음' }}</p>
-      <p><strong>가입 대상:</strong> {{ product.join_member }}</p>
-      <p><strong>기타 유의사항:</strong> {{ product.etc_note || '없음' }}</p>
-      <p><strong>최고 한도:</strong> {{ product.max_limit != null ? product.max_limit + '원' : '제한 없음' }}</p>
-      <p><strong>공시 기간:</strong> {{ product.dcls_strt_day }} ~ {{ product.dcls_end_day || '제한 없음' }}</p>
-      <p><strong>제출일:</strong> {{ product.fin_co_subm_day }}</p>
-    </div> -->
-
-
-    <!-- 상세 페이지 이동 -->
   </div>
 </template>
 
@@ -88,7 +63,7 @@ const props = defineProps({
   product: Object
 })
 
-// 🔁 가장 높은 금리 옵션 계산
+// 가장 높은 금리 옵션 계산
 const bestOption = computed(() => {
   return props.product.options?.reduce((max, opt) =>
     parseFloat(opt.intr_rate2 || 0) > parseFloat(max?.intr_rate2 || 0) ? opt : max
@@ -103,7 +78,7 @@ const saveTrm = computed(() => {
   return Number(bestOption.value?.save_trm ?? 12)
 })
 
-// 🔁 예상 수익 계산
+// 예상 수익 계산
 const predictedProfit = computed(() => {
   const amount = amountStore.amount || 0
   const rate = parseFloat(bestRate.value || 0)
@@ -135,7 +110,6 @@ const goToDetail = () => {
 
 <style scoped>
 *{
-  /* border: 1px dashed blue; */
   box-sizing: border-box;
 }
 .card-container {
@@ -147,7 +121,6 @@ const goToDetail = () => {
 }
 
 .info-card {
-  /* background-color: #b2e6fb; */
   background-color: #FDDE88;
   border-radius: 2rem 2rem 0 2rem;
   padding: 1.7rem;
@@ -156,8 +129,6 @@ const goToDetail = () => {
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0,0,0,0.05);
 }
-
-
 .tag {
   position: absolute;
   top: 1rem;

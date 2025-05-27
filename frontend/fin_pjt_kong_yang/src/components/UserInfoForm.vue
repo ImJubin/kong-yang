@@ -3,27 +3,27 @@
     <h2>회원정보 수정</h2>
 
     <label>
-      아이디 (수정 불가)
+      아이디 (수정 불가)<br>
       <input type="text" v-model="form.username" readonly />
     </label>
 
     <label>
-      이름
+      이름<br>
       <input type="text" v-model="form.first_name" required />
     </label>
 
     <label>
-      성
+      성<br>
       <input type="text" v-model="form.last_name" required />
     </label>
 
     <label>
-      이메일
+      이메일<br>
       <input type="email" v-model="form.email" required />
     </label>
 
     <label>
-      전화번호
+      전화번호<br>
       <input type="text" v-model="form.phone_number" required />
     </label>
 
@@ -66,10 +66,10 @@ const onSubmit = async () => {
   })
 
   if (result.success) {
-    successMessage.value = '✅ 회원 정보가 수정되었습니다.'
+    successMessage.value = '회원 정보가 수정되었습니다.'
     errorMessage.value = ''
   } else {
-    errorMessage.value = '❌ 수정 실패: ' + (result.message?.detail || '오류 발생')
+    errorMessage.value = '수정 실패: ' + (result.message?.detail || '오류 발생')
     successMessage.value = ''
   }
 }
@@ -87,15 +87,26 @@ input {
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
+  width:100%;
+  margin-top:8px;
+  height:45px;
 }
 
 button {
+  height:45px;
   padding: 0.6rem;
-  background-color: #4caf50;
-  color: white;
+  background-color: #555;
+  color:#fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  margin-top:30px;
+  transition: all 0.2s ease;
+}
+button:hover{
+  background-color: #ccc;
+  color: #333;
+  transition: all 0.2s ease;
 }
 
 .success {

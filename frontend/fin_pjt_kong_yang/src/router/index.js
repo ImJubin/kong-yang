@@ -16,7 +16,7 @@ import VideoDetailView from '@/views/VideoDetailView.vue'
 import LaterView from '@/views/LaterView.vue'
 import LandingPageView from "@/views/LandingPageView.vue";
 
-// ✅ 로그인된 사용자가 회원가입 페이지에 접근하지 못하도록
+// 로그인된 사용자가 회원가입 페이지에 접근하지 못하도록
 const requireNotLoggedIn = (to, from, next) => {
   const token = sessionStorage.getItem("authToken");
   if (token) {
@@ -50,18 +50,10 @@ const router = createRouter({
       // component: MyHomeView,
     },
     {
-      path: "/about",
-      name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import("../views/AboutView.vue"),
-    },
-    {
       path: "/users/signup",
       name: "SignUp",
       component: SignUpView,
-      beforeEnter: requireNotLoggedIn, // ✅ 로그인 상태 체크
+      beforeEnter: requireNotLoggedIn,
     },
     {
       path: "/users/login",
@@ -115,16 +107,14 @@ const router = createRouter({
     {
       path: "/articles/component/",
       name: "ArticleList",
-      component: ArticleList,
-      beforeEnter: requireLoggedIn,
+      component: HomeView,
     },
     {
       path: "/articles/:id",
       name: "ArticleDetailView",
-      component: () => import("@/views/ArticleDetailView.vue"), // 또는 직접 import
+      component: () => import("@/views/ArticleDetailView.vue"),
       beforeEnter: requireLoggedIn,
     },
-    // router/index.js 지수비교
     {
       path: "/compare",
       name: "Compare",

@@ -55,13 +55,13 @@ const phone_number = ref('')
 
 const showError = ref(false)
 
-// ❗ 비밀번호 불일치 여부
+// 비밀번호 불일치 여부
 const passwordMismatch = computed(() =>
   password.value && password2.value && password.value !== password2.value
 )
 
 const signUp = async () => {
-  // ❗ 필수 필드 체크
+  // 필수 필드 체크
   if (
     !username.value ||
     !email.value ||
@@ -98,7 +98,6 @@ const signUp = async () => {
   const errors = err.response?.data
 
   if (errors) {
-    // 예: {"username": ["이미 존재하는 아이디입니다."], "password": ["너무 짧습니다."]}
     const messages = Object.entries(errors)
       .map(([field, msgs]) => `${field}: ${msgs.join(', ')}`)
       .join('\n')

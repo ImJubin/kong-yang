@@ -2,7 +2,7 @@
   <div class="mt-6 border p-4 rounded bg-white">
     <h3 class="text-lg font-bold">상품 가입</h3>
 
-    <label class="block mt-2">예치 기간</label>
+    <label class="block mt-2">예치 기간</label><br>
     <select v-model="selectedOptionId" class="w-full p-2 border rounded">
       <option disabled value="">선택</option>
       <option
@@ -12,12 +12,12 @@
       >
         {{ option.save_trm }}개월 ({{ option.intr_rate }}%)
       </option>
-    </select>
+    </select><br>
 
-    <!-- ✅ 예금/적금에 따라 라벨 변경 -->
+    <!-- 예금/적금에 따라 라벨 변경 -->
     <label class="block mt-2">
       {{ type === 'savings' ? '월 납입 금액 (원)' : '예치 금액 (원)' }}
-    </label>
+    </label><br>
     <input
       v-model.number="amount"
       type="number"
@@ -39,45 +39,6 @@
     </button>
   </div>
 </template>
-
-<!-- <template>
-  <div class="mt-6 border p-4 rounded bg-white">
-    <h3 class="text-lg font-bold">상품 가입</h3>
-
-    <label class="block mt-2">예치 기간</label>
-    <select v-model="selectedOptionId" class="w-full p-2 border rounded">
-      <option disabled value="">선택</option>
-      <option
-        v-for="option in product.options"
-        :key="option.id"
-        :value="option.id"
-      >
-        {{ option.save_trm }}개월 ({{ option.intr_rate }}%)
-      </option>
-    </select>
-
-    <label class="block mt-2">예치 금액 (원)</label>
-    <input
-      v-model.number="amount"
-      type="number"
-      placeholder="1000000"
-      class="w-full p-2 border rounded"
-    />
-
-    
-    <p class="mt-4 text-sm text-gray-700">
-      예상 이자: <strong>{{ predictedInterest.toLocaleString() }}원</strong>
-    </p>
-
-    <button
-      :disabled="!selectedOptionId || !amount"
-      class="mt-4 w-full py-2 bg-blue-500 text-white rounded disabled:opacity-50"
-      @click="handlePurchase"
-    >
-      구매하기
-    </button>
-  </div>
-</template>-->
 
 <script setup>
 import { ref, computed } from 'vue'
@@ -129,15 +90,53 @@ const handlePurchase = async () => {
     },
     {
     headers: {
-        Authorization: `Token ${token}`  // 만약 JWT라면 Bearer로
+        Authorization: `Token ${token}`
     } 
   })
     await store.fetchAccounts()
     alert('가입 완료!')
-    router.push('/mypage/accounts')
+    router.push({ name: 'MyPage' })
   } catch (err) {
     alert('가입 실패')
     console.error(err)
   }
 }
 </script>
+<style scope>
+input{
+  padding:5px 10px;
+  width:500px;
+  height:35px;
+  margin-top:5px;
+  margin-bottom:15px;
+  border:1px solid #aaa;
+}
+select{
+  height:35px;
+  width:500px;
+  margin-top:5px;
+  margin-bottom:15px;
+  border:1px solid #aaa;
+  padding:5px 10px;
+}
+
+button{
+  background-color: #555;
+  color:#fff;
+  /* margin-top: 20px; */
+  padding: 10px;
+  border: none;
+  border-radius: 3px;
+  width:100px;
+  /* height:px; */
+  margin-top:33px;
+  transition: all 0.2s ease;
+
+}
+button:hover{
+  background-color: #ccc;
+  color: #333;
+  transition: all 0.2s ease;
+}
+
+</style>

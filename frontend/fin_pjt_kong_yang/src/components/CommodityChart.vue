@@ -1,3 +1,29 @@
+<template>
+  <div class="price-chart-container">
+    <Line :data="chartData" :options="chartOptions" class="mb-8" />
+
+    <div class="price-list">
+      <div v-for="(item, idx) in data" :key="idx">
+        <!-- 날짜 구분선 -->
+        <div v-if="idx > 0 && isDateChanged(data[idx - 1].x, item.x)" class="date-divider">
+          📅 {{ formatDate(item.x) }}
+        </div>
+
+        <!-- 가격 항목 카드 -->
+        <div class="price-row">
+          <div class="time">{{ formatDateTime(item.x) }}</div>
+          <div
+            class="price"
+            :class="{ up: isPriceUp(idx), down: isPriceDown(idx) }"
+          >
+            {{ item.y.toFixed(2) }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
 <script setup>
 import { Line } from "vue-chartjs";
 import {
@@ -31,8 +57,8 @@ const chartData = ref({
       label: "Price",
       data: props.data.map((d) => d.y),
       fill: true,
-      backgroundColor: "#AAAAAA22", // 회색 배경 (투명도 13%)
-      borderColor: "#FDC200", // 노란색 선
+      backgroundColor: "#AAAAAA22",
+      borderColor: "#FDC200",
       borderWidth: 2,
       tension: 0.3,
       pointRadius: 4,
@@ -102,7 +128,6 @@ const isPriceDown = (idx) => {
   return idx > 0 && props.data[idx].y < props.data[idx - 1].y;
 };
 
-// ✅ props.data가 바뀔 때마다 chartData 업데이트
 watch(
   () => props.data,
   (newData) => {
@@ -113,8 +138,8 @@ watch(
           label: "Price",
           data: newData.map((d) => d.y),
           fill: true,
-          backgroundColor: "#AAAAAA22", // 회색 배경 (투명도 13%)
-          borderColor: "#FDC200", // 노란색 선
+          backgroundColor: "#AAAAAA22",
+          borderColor: "#FDC200",
           borderWidth: 2,
           tension: 0.3,
           pointRadius: 4,
@@ -127,48 +152,53 @@ watch(
 );
 </script>
 
-<template>
-  <div>
-    <!-- <pre>{{ data }}</pre> -->
-    <!-- ✅ 여기가 디버깅용입니다 -->
+<style scoped>
+.price-chart-container {
+  font-family: "Noto Sans KR", sans-serif;
+}
 
-    <Line :data="chartData" :options="chartOptions" class="mb-6" />
+.price-list {
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 4px 0;
+  box-shadow: 0 2px 4px #ccc;
+  background-color: white;
+}
 
-    <div class="max-h-64 overflow-y-auto border rounded shadow">
-      <table class="w-full text-sm table-auto">
-        <thead class="sticky top-0 bg-white z-10">
-          <tr class="bg-gray-100 text-left">
-            <th class="px-4 py-2 border">🕒 시간</th>
-            <th class="px-4 py-2 border">💰 가격</th>
-          </tr>
-        </thead>
-        <tbody>
-          <template v-for="(item, idx) in data" :key="idx">
-            <!-- 날짜가 바뀌면 구분선 -->
-            <tr v-if="idx > 0 && isDateChanged(data[idx - 1].x, item.x)">
-              <td
-                colspan="2"
-                class="text-xs text-gray-500 text-center bg-gray-50 border-y py-1"
-              >
-                📅 {{ formatDate(item.x) }}
-              </td>
-            </tr>
+.date-divider {
+  text-align: center;
+  font-size: 12px;
+  color: #666;
+  background-color: #f0f0f0;
+  padding: 4px 0;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
 
-            <tr>
-              <td class="px-4 py-1 border">{{ formatDateTime(item.x) }}</td>
-              <td
-                class="px-4 py-1 border font-semibold"
-                :class="{
-                  'text-red-500': isPriceUp(idx),
-                  'text-blue-600': isPriceDown(idx),
-                }"
-              >
-                {{ item.y.toFixed(2) }}
-              </td>
-            </tr>
-          </template>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</template>
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.time {
+  color: #333;
+  font-size: 13px;
+}
+
+.price {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.price.up {
+  color: #e11d48; /* red-600 */
+}
+
+.price.down {
+  color: #2563eb; /* blue-600 */
+}
+</style>

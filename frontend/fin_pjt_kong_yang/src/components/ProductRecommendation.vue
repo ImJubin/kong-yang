@@ -1,9 +1,9 @@
 <template>
   <div class="recommendation-com">
-    <!-- 추천 카드 먼저 -->
+    <!-- 추천 카드 -->
     <div v-if="recommendations.length" class="mb-6">
-      <h2 class="text-xl font-bold mb-4">✨추천 상품</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <h2 class="title"> 추천 상품</h2>
+      <div class="recommedation-card-list">
         <ProductRecommendationCard
           v-for="product in recommendations"
           :key="product.id + '-' + product.save_trm"
@@ -45,14 +45,14 @@ const fetchRecommendation = async (amount = null) => {
   }
 }
 
-// 🔁 금액이 바뀔 때마다 추천 요청
+// 금액이 바뀔 때마다 추천 요청
 watch(() => amountStore.amount, (newAmount) => {
   if (newAmount && newAmount > 0) {
     fetchRecommendation(newAmount)
   }
 })
 
-// 🔁 초기 진입 시 유저 계좌 기반 금액 + 추천 요청
+// 초기 진입 시 유저 계좌 기반 금액 + 추천 요청
 onMounted(async () => {
   if (!amountStore.amount) {
     await amountStore.fetchInitialAmount()
@@ -60,3 +60,18 @@ onMounted(async () => {
   fetchRecommendation(amountStore.amount)
 })
 </script>
+<style scope>
+.title{
+  margin-top:30px;
+  margin-left:30px;
+}
+.recommedation-card-list{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem; /* 카드 간 간격 */
+  width: 100%;
+  box-sizing: border-box;
+  /* border: 1px solid blue; */
+  padding:0;
+}
+</style>
