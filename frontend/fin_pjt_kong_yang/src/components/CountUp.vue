@@ -15,7 +15,7 @@ const props = defineProps({
 const number = ref(0)
 
 const formattedNumber = computed(() => {
-  return number.value.toLocaleString(undefined, {
+  return number.value.toFixed(undefined, {
     minimumFractionDigits: props.decimals,
     maximumFractionDigits: props.decimals
   })
@@ -23,7 +23,7 @@ const formattedNumber = computed(() => {
 
 onMounted(() => {
   const startTime = performance.now()
-  const startValue = 0
+  const startValue = 98615299
 
   const animate = (currentTime) => {
     const elapsed = currentTime - startTime

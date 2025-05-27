@@ -39,24 +39,92 @@ function toggleSave() {
 </script>
 
 <template>
-  <div v-if="video">
-    <h2>{{ video.snippet.title }}</h2>
+  <div v-if="video" id = "video-detail">
     <iframe
-      width="560"
-      height="315"
-      :src="`https://www.youtube.com/embed/${videoId}`"
-      frameborder="0"
-      allowfullscreen
+    width="560"
+    height="315"
+    :src="`https://www.youtube.com/embed/${videoId}`"
+    frameborder="0"
+    allowfullscreen
     ></iframe>
+    
+    <h2 class = "video-title">{{ video.snippet.title }}</h2>
+    <div class = "description_sub">
+      <div class = "left">
+      <p class="publishedAt">게시 시간 : {{ video.snippet.publishedAt }}</p>
+      <p class="channelTitle">게시자 : {{ video.snippet.channelTitle }}</p>
+      </div>
+      <div class = "right">
+      <button class = "save-button" @click="toggleSave">
+        {{ isSaved ? '저장 취소' : '저장 하기' }}
+      </button>
+      </div>
+    </div>
+    <div class = "line"></div>
+    <p class="description">{{ video.snippet.description }}</p>
 
-    <p>{{ video.snippet.description }}</p>
-
-    <button @click="toggleSave">
-      {{ isSaved ? '저장 취소' : '나중에 보기' }}
-    </button>
   </div>
 
   <div v-else>
     <p>로딩 중...</p>
   </div>
 </template>
+<style scoped>
+#video-detail{
+  margin:50px auto;
+  width:1200px;
+  color:#333;
+
+}
+#video-detail iframe {
+  border-radius: 12px;
+  width: 100%;
+  height: 600px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin:50px 0;
+}
+.description {
+  white-space: pre-wrap;
+  line-height: 1.6;
+  color: #444;
+}
+.description_sub{
+  display: flex;
+  width:100%;
+  margin-top:25px;
+}
+.left{
+  width:300px;
+}
+.left>p{
+  line-height:2;
+  }
+  .right{
+    width:1000px;
+    /* right:0%; */
+    text-align: right;
+}
+.line{
+  border-top:1px solid #aaa;
+  margin:25px 0;
+}
+
+.save-button {
+  background-color: #555;
+  color:#fff;
+  /* margin-top: 20px; */
+  padding: 10px;
+  border: none;
+  border-radius: 3px;
+  width:100px;
+  /* height:px; */
+  margin-top:33px;
+  transition: all 0.2s ease;
+}
+.save-button:hover {
+  background-color: #ccc;
+  color: #333;
+  transition: all 0.2s ease;
+}
+</style>
+

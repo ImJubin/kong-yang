@@ -10,9 +10,11 @@ export const useUserStore = defineStore('user', () => {
 
     const token = ref(sessionStorage.getItem('authToken') || null)
     const user = ref(null)
+
+    const isLoggedIn = computed(() => !!user.value)
   
 
-    //회원가입입
+    //회원가입
     const signUp = async function (payload) {
     const {
       username, email, password, password2, first_name, last_name, phone_number
@@ -91,10 +93,11 @@ export const useUserStore = defineStore('user', () => {
   // 토큰 및 사용자 정보 초기화
   token.value = null
   user.value = null
-  sessionStorage.removeItem('token')
+  sessionStorage.removeItem('authToken')
+  delete axios.defaults.headers.common['Authorization']
   
   // 홈으로 이동
-  router.push({ name: 'Home' })
+  router.push({ name: 'LandingPage' })
   console.log('로그아웃 완료')
 } 
 
@@ -145,11 +148,11 @@ const deleteUser = async () => {
     })
     // 토큰 삭제하고 홈으로 이동
     sessionStorage.removeItem('authToken')
-    router.push({ name: 'Home' })
+    router.push({ name: 'LandingPage' })
   } catch (err) {
     console.error('회원 탈퇴 실패:', err.response?.data)
   }
 }
 
-  return { token, user, signUp, logIn, logOut, fetchUserInfo, changePassword, updateUserInfo, deleteUser }
+  return { token, user, isLoggedIn, signUp, logIn, logOut, fetchUserInfo, changePassword, updateUserInfo, deleteUser }
 },{ persist: true })

@@ -1,7 +1,10 @@
 <template>
-<h2>비디오 검색</h2>
-<input v-model="query" @keyup.enter="onSearch"></input>
-<button @click="onSearch">찾기</button>
+  <div id="search">
+
+  
+    <h2 class = "search_title">비디오 검색</h2>
+    <input v-model="query" @keyup.enter="onSearch" class="search-input"></input>
+    <button @click="onSearch" class = "search-btn">찾기</button>
 
     <div class="video-list">
       <div v-for="video in videos" :key="video.id.videoId" class="video-card">
@@ -14,7 +17,7 @@
     </router-link>
       </div>
     </div>
-
+    </div>
 </template>
 
 <script setup>
@@ -41,35 +44,64 @@ const onSearch = async () => {
 </script>
 
 <style scoped>
+*{
+  /* border:1px dashed red; */
+  color:#333;
+}
+#search{
+  width:1200px;
+  margin:150px auto;
+  text-align: center;
+
+}
+.search_title{
+  text-align: center;
+  margin-bottom:30px;
+}
+
+.search-btn {
+  background-color: #555;
+  color:#fff;
+  padding: 10px;
+  border: none;
+  border-radius: 3px;
+  width:100px;
+  margin-left:15px;
+  transition: all 0.2s ease;
+  height:43px;
+}
+.search-btn:hover {
+  background-color: #ccc;
+  color: #333;
+  transition: all 0.2s ease;
+}
+
 .search-page {
-  padding: 20px;
+  /* padding: 20px; */
 }
 
 .search-bar {
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
 }
 
-input {
+.search-input {
   padding: 8px;
-  width: 300px;
+  padding-left:15px;
+  width: 500px;
   font-size: 16px;
+  border:1px solid #333;
+  border-radius: 3px;
 }
-
-button {
-  padding: 8px 12px;
-  font-size: 16px;
-  margin-left: 8px;
-  cursor: pointer;
-}
-
 .video-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 13px;
+  margin-top:80px;
+
 }
 
 .video-card {
-  width: 240px;
+  width: 290px;
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
