@@ -1,39 +1,54 @@
 <template>
-    <div style="margin: 10px 0;">
-<button @click="searchMode = 'atm'; searchNearbyBanks()">ATM 보기</button>
-<button @click="searchMode = 'branch'; searchNearbyBanks()">지점 보기</button>
-<button @click="searchMode = 'all'; searchNearbyBanks()">전체 보기</button>
-</div>
+  <div id = "map-search">
+
+    <!-- 필터링 -->
+    <div class = "filter-button">
+        <button
+    :class="{ active: searchMode === 'atm' }"
+    @click="searchMode = 'atm'; searchNearbyBanks()"
+  >ATM 보기</button>
+
+  <button
+    :class="{ active: searchMode === 'branch' }"
+    @click="searchMode = 'branch'; searchNearbyBanks()"
+  >지점 보기</button>
+
+  <button :class="{ active: searchMode === 'all' }" @click="searchMode = 'all'; searchNearbyBanks()">전체 보기</button>
+  </div>
 
 
-  <div class="search_main">
-    <div class="search_drop">
-      <div>
-        <p>광역시 / 도</p>
-        <select v-model="store.sido">
-          <option disabled value="">광역시 / 도를 선택하세요</option>
-          <option v-for="region in store.mapData" :key="region.name" :value="region.name">
-            {{ region.name }}
-          </option>
-        </select>
-      </div>
-      <div>
-        <p>시 / 군 / 구</p>
-        <select v-model="store.sigungu" :disabled="!sigunguOptions.length">
-          <option disabled value="">시 / 군 / 구를 선택하세요</option>
-          <option v-for="s in sigunguOptions" :key="s" :value="s">{{ s }}</option>
-        </select>
-      </div>
-      <div>
-        <p>은행</p>
-        <select v-model="store.bank" :disabled="!store.sigungu">
-          <option disabled value="">은행을 선택하세요</option>
-          <option v-for="b in store.bankList" :key="b" :value="b">{{ b }}</option>
-        </select>
-      </div>
-      <button class="orange-color search-btn" :disabled="!isMapReady" @click="search">검색</button>
-    </div>
+    <!-- 지도 화면 -->
     <div id="map" style="width: 100%; height: 500px;"></div>
+
+    <!-- 은행 찾기 -->
+    <div class="search_main">
+      <div class="search_drop">
+        <div>
+          <p>광역시 / 도</p>
+          <select v-model="store.sido">
+            <option disabled value="">광역시 / 도를 선택하세요</option>
+            <option v-for="region in store.mapData" :key="region.name" :value="region.name">
+              {{ region.name }}
+            </option>
+          </select>
+        </div>
+        <div>
+          <p>시 / 군 / 구</p>
+          <select v-model="store.sigungu" :disabled="!sigunguOptions.length">
+            <option disabled value="">시 / 군 / 구를 선택하세요</option>
+            <option v-for="s in sigunguOptions" :key="s" :value="s">{{ s }}</option>
+          </select>
+        </div>
+        <div>
+          <p>은행</p>
+          <select v-model="store.bank" :disabled="!store.sigungu">
+            <option disabled value="">은행을 선택하세요</option>
+            <option v-for="b in store.bankList" :key="b" :value="b">{{ b }}</option>
+          </select>
+        </div>
+        <button class="search-btn" :disabled="!isMapReady" @click="search">검색</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -186,10 +201,6 @@ const placesSearchCB = (data, status, moveMap = true) => {
     bounds.extend(new kakao.maps.LatLng(place.y, place.x))
   })
 
-//   if (filtered.length) {
-//   ignoreNextCenterChange = true
-//   map.setBounds(bounds)
-// }
 if (filtered.length && moveMap) {
     ignoreNextCenterChange = true
     map.setBounds(bounds)
@@ -204,7 +215,7 @@ const initUserPosition = () => {
         const lat = pos.coords.latitude
         const lng = pos.coords.longitude
         initMap(lat, lng)
-        // ✅ 위치 주변 자동 검색 실행
+        // ✅ 위치 주변 자동 검색 실행 
         searchNearbyBanks(lat, lng)
         resolve()
       },
@@ -260,23 +271,66 @@ const getDistance = (lat1, lng1, lat2, lng2) => {
 </script>
 
 <style scoped>
+.filter-button{
+  margin-top:25px;
+}
+.filter-button>button{
+  border:none;
+  background-color: #fff;
+  padding:20px 50px;
+  border-bottom:1px solid #FFD014;
+  transition: all 0.2s ease;
+}
+.filter-button>button:hover{
+  background-color: #FFD014;
+  transition: all 0.2s ease;
+}
+.filter-button > button.active {
+  background-color: #FFD014;
+  color: #333;
+  font-weight: bold;
+}
+
 .search_main {
-  display: flex;
-  gap: 1rem;
+  margin-top:25px;
+}
+select{
+  border:1px dashed red;
+  width:300px;
+  height:40px;
+  border:1px solid #aaa;
+  padding:5px;
+  margin-top:10px;
 }
 .search_drop {
-  width: 33%;
+  width: 100%;
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
+}
+.search_drop>div{
+  margin-right:15px;
+}
+.search_drop>div>p{
+  font-weight: 600;
 }
 .orange-color {
-  background-color: rgb(255, 147, 85);
   color: white;
 }
 .search-btn {
-  margin-top: 50px;
+  background-color: #555;
+  color:#fff;
+  /* margin-top: 20px; */
   padding: 10px;
   border: none;
   border-radius: 3px;
+  width:100px;
+  /* height:px; */
+  margin-top:33px;
+  transition: all 0.2s ease;
+}
+.search-btn:hover {
+  background-color: #ccc;
+  color: #333;
+  transition: all 0.2s ease;
 }
 </style>
