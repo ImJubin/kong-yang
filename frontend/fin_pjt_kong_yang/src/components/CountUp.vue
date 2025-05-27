@@ -1,4 +1,3 @@
-<!-- src/components/CountUp.vue -->
 <template>
   <span>{{ formattedNumber }}</span>
 </template>

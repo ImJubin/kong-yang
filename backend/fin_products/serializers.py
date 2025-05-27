@@ -46,21 +46,21 @@ class DepositProductDetailSerializer(serializers.ModelSerializer):
         return int(amount * (rate / 100))
 
 
-# ✅ 3. 예금 기본 정보용 시리얼라이저 (선택)
+# 3. 예금 기본 정보용 시리얼라이저
 class DepositProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = DepositProduct
         fields = '__all__'
 
 
-# ✅ 4. 적금 옵션 시리얼라이저
+# 4. 적금 옵션 시리얼라이저
 class SavingsOptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = SavingsOption
         fields = '__all__'
 
 
-# ✅ 5. 적금 상세 시리얼라이저
+# 5. 적금 상세 시리얼라이저
 class SavingsProductDetailSerializer(serializers.ModelSerializer):
     options = SavingsOptionSerializer(many=True, read_only=True)
     bestRate = serializers.SerializerMethodField()
@@ -98,7 +98,7 @@ class SavingsProductDetailSerializer(serializers.ModelSerializer):
         return int(amount * (rate / 100))
 
 
-# ✅ 6. 적금 기본 정보용 시리얼라이저 (선택)
+# 6. 적금 기본 정보용 시리얼라이저
 class SavingsProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = SavingsProduct

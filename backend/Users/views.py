@@ -77,7 +77,7 @@ def user_accounts_interest(request):
     user = request.user
     accounts = Account.objects.filter(user_id=user)
 
-    # ⏱ 실시간 이자 갱신
+    # 실시간 이자 갱신
     for account in accounts:
         if hasattr(account, 'savings_detail'):
             account.savings_detail.update_hourly_interest()
@@ -89,11 +89,6 @@ def user_accounts_interest(request):
 
 
 
-
-
-
-
-# users/views.py
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import SavingsDetail, DepositDetail
@@ -172,7 +167,7 @@ def purchase_product(request):
         option = DepositOption.objects.select_related('deposit_product').get(id=option_id)
         product = option.deposit_product
 
-        # 1️⃣ 계좌 생성
+        # 계좌 생성
         acc = Account.objects.create(
             user_id=user,
             bank_name=product.kor_co_nm,
@@ -182,7 +177,7 @@ def purchase_product(request):
             is_main=False
         )
 
-        # 2️⃣ 디테일 붙이기
+        # 디테일 붙이기
         DepositDetail.objects.create(
             account=acc,
             product_name=product.fin_prdt_nm,
@@ -200,13 +195,13 @@ def purchase_product(request):
         duration = option.save_trm
         rate = option.intr_rate or Decimal("0.00")
 
-        # 1. 금액(월 납입액) 검증
+        # 금액(월 납입액) 검증
         try:
             amount = Decimal(str(request.data.get('amount', '0'))).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
         except InvalidOperation:
             return Response({'error': '금액이 유효하지 않습니다.'}, status=400)
 
-        # 2. 계좌 생성
+        # 계좌 생성
         acc = Account.objects.create(
             user_id=user,
             bank_name=product.kor_co_nm,
@@ -216,13 +211,13 @@ def purchase_product(request):
             is_main=False
         )
 
-        # 3. 목표 금액과 예상 이자 계산
+        # 목표 금액과 예상 이자 계산
         goal_amount = (amount * duration).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
         expected_interest = (
             amount * Decimal(duration + 1) / 2 * (rate / Decimal("100")) * (Decimal("1") / 12)
         ).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
 
-        # 4. 적금 디테일 생성
+        # 적금 디테일 생성
         savings_detail = SavingsDetail(
             account=acc,
             product_name=product.fin_prdt_nm,
@@ -232,15 +227,15 @@ def purchase_product(request):
             ends_at=date.today() + relativedelta(months=duration),
             total_round=duration,
             goal_amount=goal_amount,
-            interest_total=expected_interest  # ✅ 누적 이자 계산을 위한 기준값
+            interest_total=expected_interest 
         )
 
-        # 5. 저장 (pk 없어서 역참조 안 되니까 먼저 save)
+        # 저장 
         super(SavingsDetail, savings_detail).save()
         savings_detail.update_delay_status()
         savings_detail.save()
 
-        # 6. 1회차 자동 납입 등록
+        # 1회차 자동 납입 등록
         SavingsPayment.objects.create(
             savings_detail=savings_detail,
             round_number=1,
@@ -248,7 +243,7 @@ def purchase_product(request):
             amount=amount
         )
 
-        # 7. 계좌 잔액 반영
+        # 계좌 잔액 반영
         acc.current_balance += amount
         acc.save()
 
@@ -259,7 +254,8 @@ def purchase_product(request):
 
     return Response({'message': '계좌 생성 및 상품 가입 완료'})
 
-# 누적 이자를 주기적으로 계산해서 DB에도 반영되고
+
+
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -299,7 +295,7 @@ from .serializers import AccountInterestSerializer
 def my_interest_comparison(request):
     accounts = request.user.accounts.all()
 
-    # ✅ 금리가 null이 아닌 계좌만 필터링
+    # 금리가 null이 아닌 계좌만 필터링
     filtered_accounts = []
     for acc in accounts:
         rate = None

@@ -33,7 +33,7 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = '__all__'
-        read_only_fields = ('user', 'article', 'created_at')  # ✅ 클라이언트가 이 값 보내지 않아도 됨!
+        read_only_fields = ('user', 'article', 'created_at')  
 
     def create(self, validated_data):
         request = self.context.get('request')

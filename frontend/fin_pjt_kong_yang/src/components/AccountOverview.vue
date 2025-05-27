@@ -130,7 +130,7 @@ const startInterestSimulation = function(detail) {
   }, 1000)
 }
 
-// 컴포넌트가 마운트되면 실행
+
 onMounted(async function() {
   const token = sessionStorage.getItem('authToken')
 

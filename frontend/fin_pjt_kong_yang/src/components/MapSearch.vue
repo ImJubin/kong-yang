@@ -169,7 +169,7 @@ const placesSearchCB = (data, status, moveMap = true) => {
 
   const bounds = new kakao.maps.LatLngBounds()
 
-  // ✅ 필터링
+  // 필터링
   const filtered = data.filter(place => {
   const name = place.place_name.toLowerCase()
   const category = place.category_name?.toLowerCase() || ''
@@ -215,7 +215,7 @@ const initUserPosition = () => {
         const lat = pos.coords.latitude
         const lng = pos.coords.longitude
         initMap(lat, lng)
-        // ✅ 위치 주변 자동 검색 실행 
+        // 위치 주변 자동 검색 실행 
         searchNearbyBanks(lat, lng)
         resolve()
       },
@@ -241,7 +241,7 @@ const searchNearbyBanks = () => {
   const radius = getDistance(center.getLat(), center.getLng(), ne.getLat(), ne.getLng())
 
   ps.keywordSearch('은행', (data, status) => {
-    placesSearchCB(data, status, false)  // ❌ 지도 중심 이동 안 함
+    placesSearchCB(data, status, false)  // 지도 중심 이동 안 함
   }, {
     location: center,
     radius

@@ -46,12 +46,12 @@ const goEdit = (articleId) => {
 const deleteArticle = async (articleId) => {
   if (confirm("정말 삭제할까요?")) {
     await store.deleteArticle(articleId);
-    store.getArticles(); // 삭제 후 목록 새로고침
+    store.getArticles(); 
   }
 };
 
 onMounted(() => {
-  store.getArticles(); // ✅ store 내부에서 axios 처리
+  store.getArticles(); 
 });
 </script>
 

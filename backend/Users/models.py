@@ -33,14 +33,12 @@ class Account(models.Model):
     def __str__(self):
         return f"{self.user.username} - {self.account_number}"
 
-# # 적금
-# models.py
+# 적금
 from django.db import models
 from django.conf import settings
 from dateutil.relativedelta import relativedelta
 from datetime import date
 
-# 기존 User, Account, SavingsDetail, DepositDetail 모델 생략 (이미 존재함)
 
 class SavingsPayment(models.Model):
     savings_detail = models.ForeignKey('SavingsDetail', on_delete=models.CASCADE, related_name='payments')
@@ -80,7 +78,7 @@ class SavingsDetail(models.Model):
     delay_status = models.CharField(max_length=20, default='정상')         # 상태: 연체 / 선납 / 정상
     interest_total = models.DecimalField(max_digits=18, decimal_places=2, default=0)  # 전체 예상 이자 총액
 
-    # ⏱️ 실시간 이자 시뮬레이션 관련
+    # 실시간 이자 시뮬레이션 관련
     interest_accumulated = models.DecimalField(max_digits=18, decimal_places=2, default=0)  # 누적 이자
     interest_last_updated = models.DateTimeField(auto_now_add=True)                         # 마지막 갱신 시각
 
@@ -135,7 +133,7 @@ class SavingsDetail(models.Model):
                 delay_days = (payment.paid_at - expected_due).days
                 if delay_days > 0:
                     delays.append(delay_days)
-            # ❌ 미납된 회차는 계산하지 않음!
+            # 미납된 회차는 계산하지 않음!
 
         if not self.payments.exists():
             self.delay_status = "정상"
@@ -194,11 +192,6 @@ class SavingsDetail(models.Model):
         self.update_delay_status()
         super().save(*args, **kwargs)
 
-    # def save(self, *args, **kwargs):
-    #     """저장 시 이자 계산 및 상태 업데이트 동시 수행"""
-    #     self.interest_total = self.calculate_interest()
-    #     self.update_delay_status()
-    #     super().save(*args, **kwargs)
 
 # 예금
 class DepositDetail(models.Model):

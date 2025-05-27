@@ -28,112 +28,7 @@ export const useDepositStore = defineStore('deposit', () => {
     }
   }
 
-//   const generateRecommendations = (amount) => {
-//   const merged = [...deposits.value, ...savings.value].map(p => ({ ...p }))
 
-//   const scored = merged.map(p => {
-//     const bestOption = p.options?.reduce((max, opt) =>
-//       opt.intr_rate2 > (max?.intr_rate2 || 0) ? opt : max
-//     , null)
-
-//     const predictedProfit = amount * (bestOption?.intr_rate2 ?? 0) / 100
-
-//     return {
-//       ...p,
-//       bestRate: bestOption?.intr_rate2 ?? null,
-//       predictedProfit: predictedProfit || 0,
-//     }
-//   })
-
-//   // 추천 top3 기준
-//   top3.value = scored.sort((a, b) => b.bestRate - a.bestRate).slice(0, 3)
-//   const topIds = new Set(top3.value.map(p => p.id))
-
-//   // ✅ deposits 업데이트 (scored에서 매칭)
-//   deposits.value = deposits.value.map(p => {
-//     const match = scored.find(i => i.id === p.id)
-//     return {
-//       ...p,
-//       bestRate: match?.bestRate ?? null,
-//       predictedProfit: match?.predictedProfit ?? null,
-//       recommended: topIds.has(p.id),
-//     }
-//   })
-
-//   // ✅ savings 업데이트 (scored에서 매칭)
-//   savings.value = savings.value.map(p => {
-//     const match = scored.find(i => i.id === p.id)
-//     return {
-//       ...p,
-//       bestRate: match?.bestRate ?? null,
-//       predictedProfit: match?.predictedProfit ?? null,
-//       recommended: topIds.has(p.id),
-//     }
-//   })
-// }
-
-// const generateRecommendations = (amount) => {
-//   const merged = [...deposits.value, ...savings.value].map(p => ({ ...p }))
-
-//   const scored = merged.map(p => {
-//     // 가장 높은 이율의 옵션 찾기
-//     const bestOption = p.options?.reduce((max, opt) =>
-//       parseFloat(opt.intr_rate2) > parseFloat(max?.intr_rate2 || 0) ? opt : max
-//     , null)
-
-//     const rate = parseFloat(bestOption?.intr_rate2 ?? 0)
-//     const period = Number(bestOption?.save_trm) || 12
-
-//     let predictedProfit = 0
-
-//     if (p.type === 'deposit') {
-//       // 예금: 단리 계산 (예치 기간만큼 비례)
-//       predictedProfit = amount * rate / 100 * (period / 12)
-//     } else if (p.type === 'savings') {
-//       // 적금: 정기적금 공식
-//       predictedProfit = amount * rate / 100 * ((period + 1) / 2 / 12)
-//     }
-
-//     return {
-//       ...p,
-//       bestRate: rate || null,
-//       predictedProfit: Math.round(predictedProfit),
-//     }
-//   })
-
-//   // top3 추천 상품 추출
-//   top3.value = scored
-//     .filter(p => p.bestRate != null)
-//     .sort((a, b) => b.bestRate - a.bestRate)
-//     .slice(0, 3)
-
-//   const topIds = new Set(top3.value.map(p => p.id))
-
-//   // 예금 업데이트
-//   deposits.value = deposits.value.map(p => {
-//     const match = scored.find(i => i.id === p.id)
-//     return {
-//       ...p,
-//       bestRate: match?.bestRate ?? null,
-//       predictedProfit: match?.predictedProfit ?? null,
-//       recommended: topIds.has(p.id),
-//     }
-//   })
-
-//   // 적금 업데이트
-//   savings.value = savings.value.map(p => {
-//     const match = scored.find(i => i.id === p.id)
-//     return {
-//       ...p,
-//       bestRate: match?.bestRate ?? null,
-//       predictedProfit: match?.predictedProfit ?? null,
-//       recommended: topIds.has(p.id),
-//     }
-//   })
-// }
-
-  // const deposits = ref([])
-  // const savings = ref([])
 
 const generateRecommendations = (amount) => {
     const merged = [...deposits.value, ...savings.value].map(p => ({ ...p }))
@@ -196,7 +91,7 @@ const generateRecommendations = (amount) => {
   return {
     deposits,
     savings,
-    top3,  // ✅ 이제 정상적으로 return 가능
+    top3,  
     fetchDeposits,
     fetchSavings,
     generateRecommendations,

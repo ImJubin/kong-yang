@@ -63,7 +63,7 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
-  // ✅ 유저 정보 불러오기
+  // 유저 정보 불러오기
   const fetchUserInfo = async function () {
     try {
       const res = await axios.get(`${API_URL}/users/user/`, {

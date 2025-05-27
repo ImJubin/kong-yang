@@ -110,7 +110,7 @@ onMounted(async () => {
   })
 )
 
-  // ✅ 데이터: 기준금리 + 내 금리들
+  // 데이터: 기준금리 + 내 금리들
   const data = [baseRate].concat(sortedAccounts.map(acc => parseFloat(acc.interest_rate)))
 
   chartData.value = {

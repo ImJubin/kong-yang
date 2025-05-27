@@ -20,7 +20,7 @@ import LandingPageView from "@/views/LandingPageView.vue";
 const requireNotLoggedIn = (to, from, next) => {
   const token = sessionStorage.getItem("authToken");
   if (token) {
-    next("/"); // 홈으로 리다이렉트
+    next({ name: "LandingPage" });
   } else {
     next();
   }

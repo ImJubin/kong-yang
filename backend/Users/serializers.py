@@ -14,9 +14,6 @@ from dateutil.relativedelta import relativedelta
 
 
 
-# User = g
-# et_user_model()
-
 #############회원가입################
 class UserSignupSerializer(serializers.ModelSerializer):
     # 이메일에 대한 중복 검증
@@ -110,13 +107,20 @@ class SavingsPaymentSerializer(serializers.ModelSerializer):
 
 class SavingsDetailSerializer(serializers.ModelSerializer):
     # 계산 필드 (자동 계산)
-    contract_receive_date = serializers.SerializerMethodField()   # 계약 기준 수령일 (ends_at + 1)
-    expected_receive_date = serializers.SerializerMethodField()   # 납입 기준 예상 수령일 (최근 납입 기준)
-    delay_days = serializers.SerializerMethodField()              # 예상 수령일 - 계약 수령일
-    delay_label = serializers.SerializerMethodField()             # 연체 or 선납 표시 문자열 (D-Day / 연체 10일 등)
-    calculated_ends_at = serializers.SerializerMethodField()      # 시작일 + 기간 = 계약 만기일 계산용
-    delay_months = serializers.SerializerMethodField()            # 연체 개월 수 (일수 / 30 기준)
-    payments = SavingsPaymentSerializer(many=True, read_only=True)  # 납입 이력 전체 포함
+    contract_receive_date = serializers.SerializerMethodField()   
+    # 계약 기준 수령일 (ends_at + 1)
+    expected_receive_date = serializers.SerializerMethodField()   
+    # 납입 기준 예상 수령일 (최근 납입 기준)
+    delay_days = serializers.SerializerMethodField()              
+    # 예상 수령일 - 계약 수령일
+    delay_label = serializers.SerializerMethodField()             
+    # 연체 or 선납 표시 문자열 (D-Day / 연체 10일 등)
+    calculated_ends_at = serializers.SerializerMethodField()      
+    # 시작일 + 기간 = 계약 만기일 계산용
+    delay_months = serializers.SerializerMethodField()            
+    # 연체 개월 수 (일수 / 30 기준)
+    payments = SavingsPaymentSerializer(many=True, read_only=True)  
+    # 납입 이력 전체 포함
 
     class Meta:
         model = SavingsDetail
@@ -125,7 +129,7 @@ class SavingsDetailSerializer(serializers.ModelSerializer):
             'duration_months', 'started_at', 'ends_at', 'goal_amount',
             'total_round', 'accumulated_delay_days', 'delay_status',
 
-            # ⏱️ 실시간 이자 필드 추가!
+            # 실시간 이자 필드 추가!
             'interest_total', 'interest_accumulated', 'interest_last_updated',
 
             # 계산 필드
@@ -149,7 +153,7 @@ class SavingsDetailSerializer(serializers.ModelSerializer):
             expected_end = last_payment.paid_at + relativedelta(months=remaining)
             contract_receive = obj.ends_at + relativedelta(days=1)
 
-            # ❗ 예상 수령일이 계약 수령일보다 빠르면 조정
+            # 예상 수령일이 계약 수령일보다 빠르면 조정
             if expected_end + relativedelta(days=1) < contract_receive:
                 return contract_receive
 
