@@ -1,62 +1,63 @@
 <script setup>
-import { ref, computed } from 'vue'
-import { useAccountStore } from '@/stores/userAccount'
-import DepositDetailForm from './DepositDetailForm.vue'
-import SavingsDetailForm from './SavingsDetailForm.vue'
+import { ref, computed } from "vue";
+import { useAccountStore } from "@/stores/userAccount";
+import DepositDetailForm from "./DepositDetailForm.vue";
+import SavingsDetailForm from "./SavingsDetailForm.vue";
 
-const store = useAccountStore()
+const store = useAccountStore();
 
 const form = ref({
-  bank_name: '',
-  account_number: '',
-  account_type: '예금',
-  alias_name: '',
-  current_balance: 0,  // ✅ 추가
-})
-
+  bank_name: "",
+  account_number: "",
+  account_type: "예금",
+  alias_name: "",
+  current_balance: 0, // ✅ 추가
+});
 
 const depositDetail = ref({
-  product_name: '',
+  product_name: "",
   interest_rate: 0,
   duration_months: 12,
-  started_at: '',
-  ends_at: '',
-})
+  started_at: "",
+  ends_at: "",
+});
 
 const savingsDetail = ref({
-  product_name: '',
+  product_name: "",
   interest_rate: 0,
   duration_months: 12,
-  started_at: '',
-  ends_at: '',
-  payment_date: '',
+  started_at: "",
+  ends_at: "",
+  payment_date: "",
   round_number: 0,
   total_round: 12,
   goal_amount: 0,
-})
+});
 
 const handleSubmit = async () => {
   const payload = {
     ...form.value,
-    deposit_detail: form.value.account_type === '예금' ? depositDetail.value : null,
-    savings_detail: form.value.account_type === '적금' ? savingsDetail.value : null,
-  }
+    deposit_detail:
+      form.value.account_type === "예금" ? depositDetail.value : null,
+    savings_detail:
+      form.value.account_type === "적금" ? savingsDetail.value : null,
+  };
 
-  await store.addAccount(payload)
+  await store.addAccount(payload);
 
   // 초기화
   form.value = {
-    bank_name: '',
-    account_number: '',
-    account_type: '예금',
-    alias_name: '',
-  }
-  depositDetail.value = {}
-  savingsDetail.value = {}
-}
+    bank_name: "",
+    account_number: "",
+    account_type: "예금",
+    alias_name: "",
+  };
+  depositDetail.value = {};
+  savingsDetail.value = {};
+};
 
-const isDeposit = computed(() => form.value.account_type === '예금')
-const isSavings = computed(() => form.value.account_type === '적금')
+const isDeposit = computed(() => form.value.account_type === "예금");
+const isSavings = computed(() => form.value.account_type === "적금");
 </script>
 
 <template>
@@ -75,15 +76,14 @@ const isSavings = computed(() => form.value.account_type === '적금')
     </div>
 
     <div class="mb-2">
-  <label class="block text-sm font-medium">현재 잔액</label>
-  <input
-    type="number"
-    v-model="form.current_balance"
-    class="border p-2 w-full"
-    required
-  />
-</div>
-
+      <label class="block text-sm font-medium">현재 잔액</label>
+      <input
+        type="number"
+        v-model="form.current_balance"
+        class="border p-2 w-full"
+        required
+      />
+    </div>
 
     <div class="mb-2">
       <label>계좌 타입</label>
