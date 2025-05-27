@@ -1,0 +1,312 @@
+[
+  {
+    "model": "users.account",
+    "pk": 1,
+    "fields": {
+      "user_id": 1,
+      "bank_name": "하나은행",
+      "account_number": "111-01-0001",
+      "account_type": "예금",
+      "current_balance": "10000000.00",
+      "is_main": false,
+      "alias_name": "예금계좌1",
+      "created_at": "2025-05-26T00:00:00Z"
+    }
+  },
+  {
+    "model": "fin_products.depositdetail",
+    "pk": 1,
+    "fields": {
+      "account": 1,
+      "product_name": "하나은행 정기예금",
+      "interest_rate": "3.00",
+      "duration_months": 12,
+      "started_at": "2025-04-26",
+      "ends_at": "2026-04-21",
+      "interest_total": "300000.00",
+      "interest_accumulated": "150000.00",
+      "interest_last_updated": "2025-05-26T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.account",
+    "pk": 2,
+    "fields": {
+      "user_id": 1,
+      "bank_name": "국민은행",
+      "account_number": "111-01-0002",
+      "account_type": "예금",
+      "current_balance": "11000000.00",
+      "is_main": false,
+      "alias_name": "예금계좌2",
+      "created_at": "2025-05-26T00:00:00Z"
+    }
+  },
+  {
+    "model": "fin_products.depositdetail",
+    "pk": 2,
+    "fields": {
+      "account": 2,
+      "product_name": "국민은행 정기예금",
+      "interest_rate": "3.20",
+      "duration_months": 12,
+      "started_at": "2025-04-26",
+      "ends_at": "2026-04-21",
+      "interest_total": "352000.00",
+      "interest_accumulated": "176000.00",
+      "interest_last_updated": "2025-05-26T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.account",
+    "pk": 3,
+    "fields": {
+      "user_id": 1,
+      "bank_name": "신한은행",
+      "account_number": "111-01-0003",
+      "account_type": "예금",
+      "current_balance": "12000000.00",
+      "is_main": false,
+      "alias_name": "예금계좌3",
+      "created_at": "2025-05-26T00:00:00Z"
+    }
+  },
+  {
+    "model": "fin_products.depositdetail",
+    "pk": 3,
+    "fields": {
+      "account": 3,
+      "product_name": "신한은행 정기예금",
+      "interest_rate": "3.40",
+      "duration_months": 12,
+      "started_at": "2025-04-26",
+      "ends_at": "2026-04-21",
+      "interest_total": "408000.00",
+      "interest_accumulated": "204000.00",
+      "interest_last_updated": "2025-05-26T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.account",
+    "pk": 4,
+    "fields": {
+      "user_id": 1,
+      "bank_name": "우리은행",
+      "account_number": "111-01-0004",
+      "account_type": "예금",
+      "current_balance": "13000000.00",
+      "is_main": false,
+      "alias_name": "예금계좌4",
+      "created_at": "2025-05-26T00:00:00Z"
+    }
+  },
+  {
+    "model": "fin_products.depositdetail",
+    "pk": 4,
+    "fields": {
+      "account": 4,
+      "product_name": "우리은행 정기예금",
+      "interest_rate": "3.60",
+      "duration_months": 12,
+      "started_at": "2025-04-26",
+      "ends_at": "2026-04-21",
+      "interest_total": "468000.00",
+      "interest_accumulated": "234000.00",
+      "interest_last_updated": "2025-05-26T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.account",
+    "pk": 5,
+    "fields": {
+      "user_id": 1,
+      "bank_name": "카카오뱅크",
+      "account_number": "111-01-0005",
+      "account_type": "예금",
+      "current_balance": "14000000.00",
+      "is_main": false,
+      "alias_name": "예금계좌5",
+      "created_at": "2025-05-26T00:00:00Z"
+    }
+  },
+  {
+    "model": "fin_products.depositdetail",
+    "pk": 5,
+    "fields": {
+      "account": 5,
+      "product_name": "카카오뱅크 정기예금",
+      "interest_rate": "3.80",
+      "duration_months": 12,
+      "started_at": "2025-04-26",
+      "ends_at": "2026-04-21",
+      "interest_total": "532000.00",
+      "interest_accumulated": "266000.00",
+      "interest_last_updated": "2025-05-26T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.account",
+    "pk": 6,
+    "fields": {
+      "user_id": 1,
+      "bank_name": "하나은행",
+      "account_number": "222-01-0006",
+      "account_type": "적금",
+      "current_balance": "2000000.00",
+      "is_main": false,
+      "alias_name": "적금계좌1",
+      "created_at": "2025-05-26T00:00:00Z"
+    }
+  },
+  {
+    "model": "fin_products.savingsdetail",
+    "pk": 1,
+    "fields": {
+      "account": 6,
+      "product_name": "하나은행 자유적금",
+      "interest_rate": "3.20",
+      "duration_months": 12,
+      "started_at": "2025-04-26",
+      "ends_at": "2026-04-21",
+      "total_round": 12,
+      "goal_amount": "2400000.00",
+      "accumulated_delay_days": 0,
+      "delay_status": "정상",
+      "interest_total": "76800.00",
+      "interest_accumulated": "38400.00",
+      "interest_last_updated": "2025-05-26T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.account",
+    "pk": 7,
+    "fields": {
+      "user_id": 1,
+      "bank_name": "국민은행",
+      "account_number": "222-01-0007",
+      "account_type": "적금",
+      "current_balance": "2500000.00",
+      "is_main": false,
+      "alias_name": "적금계좌2",
+      "created_at": "2025-05-26T00:00:00Z"
+    }
+  },
+  {
+    "model": "fin_products.savingsdetail",
+    "pk": 2,
+    "fields": {
+      "account": 7,
+      "product_name": "국민은행 자유적금",
+      "interest_rate": "3.50",
+      "duration_months": 12,
+      "started_at": "2025-04-26",
+      "ends_at": "2026-04-21",
+      "total_round": 12,
+      "goal_amount": "2900000.00",
+      "accumulated_delay_days": 0,
+      "delay_status": "정상",
+      "interest_total": "101500.00",
+      "interest_accumulated": "50750.00",
+      "interest_last_updated": "2025-05-26T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.account",
+    "pk": 8,
+    "fields": {
+      "user_id": 1,
+      "bank_name": "신한은행",
+      "account_number": "222-01-0008",
+      "account_type": "적금",
+      "current_balance": "3000000.00",
+      "is_main": false,
+      "alias_name": "적금계좌3",
+      "created_at": "2025-05-26T00:00:00Z"
+    }
+  },
+  {
+    "model": "fin_products.savingsdetail",
+    "pk": 3,
+    "fields": {
+      "account": 8,
+      "product_name": "신한은행 자유적금",
+      "interest_rate": "3.80",
+      "duration_months": 12,
+      "started_at": "2025-04-26",
+      "ends_at": "2026-04-21",
+      "total_round": 12,
+      "goal_amount": "3400000.00",
+      "accumulated_delay_days": 0,
+      "delay_status": "정상",
+      "interest_total": "129200.00",
+      "interest_accumulated": "64600.00",
+      "interest_last_updated": "2025-05-26T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.account",
+    "pk": 9,
+    "fields": {
+      "user_id": 1,
+      "bank_name": "우리은행",
+      "account_number": "222-01-0009",
+      "account_type": "적금",
+      "current_balance": "3500000.00",
+      "is_main": false,
+      "alias_name": "적금계좌4",
+      "created_at": "2025-05-26T00:00:00Z"
+    }
+  },
+  {
+    "model": "fin_products.savingsdetail",
+    "pk": 4,
+    "fields": {
+      "account": 9,
+      "product_name": "우리은행 자유적금",
+      "interest_rate": "4.10",
+      "duration_months": 12,
+      "started_at": "2025-04-26",
+      "ends_at": "2026-04-21",
+      "total_round": 12,
+      "goal_amount": "3900000.00",
+      "accumulated_delay_days": 0,
+      "delay_status": "정상",
+      "interest_total": "159900.00",
+      "interest_accumulated": "79950.00",
+      "interest_last_updated": "2025-05-26T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.account",
+    "pk": 10,
+    "fields": {
+      "user_id": 1,
+      "bank_name": "카카오뱅크",
+      "account_number": "222-01-00010",
+      "account_type": "적금",
+      "current_balance": "4000000.00",
+      "is_main": false,
+      "alias_name": "적금계좌5",
+      "created_at": "2025-05-26T00:00:00Z"
+    }
+  },
+  {
+    "model": "fin_products.savingsdetail",
+    "pk": 5,
+    "fields": {
+      "account": 10,
+      "product_name": "카카오뱅크 자유적금",
+      "interest_rate": "4.40",
+      "duration_months": 12,
+      "started_at": "2025-04-26",
+      "ends_at": "2026-04-21",
+      "total_round": 12,
+      "goal_amount": "4400000.00",
+      "accumulated_delay_days": 0,
+      "delay_status": "정상",
+      "interest_total": "193600.00",
+      "interest_accumulated": "96800.00",
+      "interest_last_updated": "2025-05-26T00:00:00Z"
+    }
+  }
+]

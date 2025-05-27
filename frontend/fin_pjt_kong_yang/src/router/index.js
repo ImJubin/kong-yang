@@ -13,6 +13,7 @@ import ProductDetailView from '@/views/ProductDetailView.vue'
 import SearchView from '@/views/SearchView.vue'
 import VideoDetailView from '@/views/VideoDetailView.vue'
 import LaterView from '@/views/LaterView.vue'
+import LandingPageView from "@/views/LandingPageView.vue";
 
 // ✅ 로그인된 사용자가 회원가입 페이지에 접근하지 못하도록
 const requireNotLoggedIn = (to, from, next) => {
@@ -39,7 +40,7 @@ const router = createRouter({
     {
       path: "/",
       name: "Home",
-      component: HomeView,
+      component: LandingPageView,
     },
     {
       path: "/about",

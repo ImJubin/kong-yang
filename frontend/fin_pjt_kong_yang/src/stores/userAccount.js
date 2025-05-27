@@ -11,7 +11,7 @@ export const useAccountStore = defineStore('account', () => {
   const fetchAccounts = async () => {
     try {
       const token = sessionStorage.getItem('authToken')
-      const res = await axios.get(`${API_URL}/users/account/`, {
+      const res = await axios.get(`${API_URL}/users/my-account/`, {
         headers: {
           Authorization: `Token ${token}`
         }
@@ -34,7 +34,7 @@ export const useAccountStore = defineStore('account', () => {
   const addAccount = async (formData) => {
     try {
       const token = sessionStorage.getItem('authToken')
-      await axios.post(`${API_URL}/users/account/`, formData, {
+      await axios.post(`${API_URL}/users/my-account/`, formData, {
         headers: {
           Authorization: `Token ${token}`
         }

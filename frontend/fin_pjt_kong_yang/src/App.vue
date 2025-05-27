@@ -15,6 +15,7 @@ onMounted(() => {
     console.log("❌ 토큰 없음");
   }
 });
+import LandingPage from '@/views/LandingPageView.vue'
 </script>
 
 <template>
@@ -46,8 +47,9 @@ onMounted(() => {
     <RouterLink :to="{name:'Search'}">Search</RouterLink>
      | 
     <RouterLink :to="{name:'Later'}">Later</RouterLink>
+    
   </nav>
-  <NavBar />
+  <!-- <NavBar /> -->
   <RouterView />
 </template>
 
