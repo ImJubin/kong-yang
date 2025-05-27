@@ -1,5 +1,6 @@
 <!-- src/views/ProductPage.vue -->
 <template>
+  <div id = "product-view">
       <!-- 💰 금액 입력: 전역 store와 연결 -->
     <input
       v-model.number="amountStore.amount"
@@ -11,27 +12,30 @@
     <!-- 추천 예적금 영역 -->
     <ProductRecommendation />
 
-    <!-- 🔸 상품 종류 필터 버튼 -->
-    <div class="mt-6 flex gap-4">
-      <button
-        v-for="tab in ['전체', '예금', '적금']"
-        :key="tab"
-        @click="selectedTab = tab"
-        :class="[
-          'px-4 py-2 rounded border',
-          selectedTab === tab ? 'bg-blue-500 text-white' : 'bg-white text-black'
-        ]"
-      >
-        {{ tab }}
-      </button>
-    </div>
+    
 
     <!-- 🔸 은행 선택 드롭다운 -->
-    <select v-model="selectedBank" class="border p-2 w-full my-4">
+
+    <select v-model="selectedBank" class="bank-select">
       <option value="">전체 은행</option>
       <option v-for="bank in uniqueBanks" :key="bank" :value="bank">{{ bank }}</option>
     </select>
 
+
+    <!-- 🔸 상품 종류 필터 버튼 -->
+    <div class="filter-option">
+  <button
+    v-for="tab in ['전체', '예금', '적금']"
+    :key="tab"
+    @click="selectedTab = tab"
+    :class="[
+      'px-4 py-2 rounded border transition',
+      selectedTab === tab ? 'bg-blue-500 text-white active' : 'bg-white text-black'
+    ]"
+  >
+    {{ tab }}
+  </button>
+</div>
     <!-- 🔸 상품 목록 -->
     <div v-if="isLoading" class="text-gray-500 text-center my-6">상품 정보를 불러오는 중입니다...</div>
 
@@ -39,7 +43,7 @@
       조건에 맞는 상품이 없습니다.
     </div>
 
-    <div v-else class="grid grid-cols-3 gap-4 mt-6">
+    <div v-else class="product-list">
       <ProductCard
         v-for="item in filteredProducts"
         :key="item.id"
@@ -48,7 +52,7 @@
     </div>
   </div>
 
-
+</div>
 </template>
 
 <script setup>
@@ -103,3 +107,46 @@ onMounted(async () => {
 })
 
 </script>
+<style scoped>
+#product-view{
+  width:1200px;
+  margin:20px auto;
+  border:1px dashed red;
+}
+.bank-select{
+  margin-left:30px;
+  border:1px solid #aaa;
+  padding:7px;
+  width:300px;
+}
+.product-list{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem; /* 카드 간 간격 */
+  width: 100%;
+  box-sizing: border-box;
+  /* border: 1px solid blue; */
+  padding:0;
+}
+
+.recommendation-com{
+  margin-bottom: 25px;;
+}
+.filter-option{
+  margin-left:30px;
+  margin-top:30px;
+}
+.filter-option>button{
+  background-color: #fff;
+  border:none;
+  padding:5px 20px;
+  font-size: 16px;
+  color:#aaa;
+}
+.filter-option>button.active{
+  border-bottom:3px solid #FDDE88;
+  font-size: 16px;
+  font-weight: 600;
+  color:#333;
+}
+</style>

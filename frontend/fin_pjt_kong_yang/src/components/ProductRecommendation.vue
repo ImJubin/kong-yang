@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4 bg-gray-100 rounded">
+  <div class="recommendation-com">
     <!-- 추천 카드 먼저 -->
     <div v-if="recommendations.length" class="mb-6">
       <h2 class="text-xl font-bold mb-4">✨추천 상품</h2>

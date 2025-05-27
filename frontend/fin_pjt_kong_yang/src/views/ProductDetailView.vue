@@ -1,36 +1,3 @@
-<!-- <template>
-  <div class="p-4">
-    <h2 class="text-xl font-bold mb-2">상품 상세 정보</h2>
-    <div v-if="product">
-      <p><strong>상품명:</strong> {{ product.fin_prdt_nm }}</p>
-      <p><strong>은행:</strong> {{ product.kor_co_nm }}</p>
-      <p><strong>이율:</strong> {{ product.bestRate }}%</p>
-      <p><strong>설명:</strong> {{ product.description || '설명 없음' }}</p> -->
-      <!-- 기타 항목들... -->
-    <!-- </div>
-    <div v-else class="text-gray-500">로딩 중...</div>
-  </div>
-</template> -->
-
-<!-- <script setup>
-import { onMounted, ref } from 'vue'
-import { useRoute } from 'vue-router'
-import axios from 'axios'
-
-const route = useRoute()
-const product = ref(null)
-
-onMounted(async () => {
-  try {
-    const res = await axios.get(`http://127.0.0.1:8000/products/${route.params.type}/${route.params.id}/`)
-    product.value = res.data
-  } catch (err) {
-    error.value = '상품을 불러오는 데 실패했습니다.'
-  }
-})
-
-</script> -->
-
 
 <template>
   <div class="p-4">
