@@ -134,4 +134,10 @@ button {
 .delete-btn:hover {
   background-color: #888888;
 }
+
+ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
 </style>

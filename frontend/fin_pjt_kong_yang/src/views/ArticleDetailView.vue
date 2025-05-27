@@ -8,12 +8,12 @@
         <RouterLink
           :to="{ name: 'ArticleUpdateView', params: { id: article.id } }"
         >
-          <button class="btn yellow-btn">✏ 수정</button>
+          <button class="btn yellow-btn">수정</button>
         </RouterLink>
-        <button class="btn gray-btn" @click="deleteArticle">🗑 삭제</button>
+        <button class="btn gray-btn" @click="deleteArticle">삭제</button>
       </div>
       <div class="comment-box">
-        <h3 class="comment-title">💬 댓글</h3>
+        <h3 class="comment-title">댓글</h3>
         <ul class="comment-list">
           <li
             v-for="comment in comments"
