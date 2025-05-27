@@ -85,4 +85,16 @@ def comment_create(request, article_pk):
             serializer.save()  # 👈 user, article은 context로 전달
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
+    
 
+
+#댓글좋아요
+@api_view(['POST'])
+def comment_like(request, comment_id):
+    try:
+        comment = Comment.objects.get(pk=comment_id)
+        comment.likes += 1
+        comment.save()
+        return Response({'likes': comment.likes})
+    except Comment.DoesNotExist:
+        return Response({'error': 'Comment not found'}, status=status.HTTP_404_NOT_FOUND)

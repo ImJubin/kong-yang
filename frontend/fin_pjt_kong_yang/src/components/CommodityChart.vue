@@ -25,17 +25,55 @@ ChartJS.register(
 const props = defineProps(["data"]);
 
 const chartData = ref({
-  labels: [],
-  datasets: [],
+  labels: props.data.map((d) => new Date(d.x).toLocaleTimeString()),
+  datasets: [
+    {
+      label: "Price",
+      data: props.data.map((d) => d.y),
+      fill: true,
+      backgroundColor: "#AAAAAA22", // 회색 배경 (투명도 13%)
+      borderColor: "#FDC200", // 노란색 선
+      borderWidth: 2,
+      tension: 0.3,
+      pointRadius: 4,
+      pointBackgroundColor: "#FDC200",
+    },
+  ],
 });
 
 const chartOptions = ref({
   responsive: true,
   plugins: {
-    legend: { position: "top" },
+    legend: {
+      labels: {
+        font: {
+          family: "Noto Sans KR",
+        },
+      },
+    },
     title: {
       display: true,
       text: "상품 시세 차트",
+      font: {
+        size: 18,
+        family: "Noto Sans KR",
+      },
+    },
+  },
+  scales: {
+    x: {
+      ticks: {
+        font: {
+          family: "Noto Sans KR",
+        },
+      },
+    },
+    y: {
+      ticks: {
+        font: {
+          family: "Noto Sans KR",
+        },
+      },
     },
   },
 });
@@ -74,9 +112,13 @@ watch(
         {
           label: "Price",
           data: newData.map((d) => d.y),
-          fill: false,
-          borderColor: "rgba(75, 192, 192, 1)",
-          tension: 0.1,
+          fill: true,
+          backgroundColor: "#AAAAAA22", // 회색 배경 (투명도 13%)
+          borderColor: "#FDC200", // 노란색 선
+          borderWidth: 2,
+          tension: 0.3,
+          pointRadius: 4,
+          pointBackgroundColor: "#FDC200",
         },
       ],
     };
@@ -89,6 +131,7 @@ watch(
   <div>
     <!-- <pre>{{ data }}</pre> -->
     <!-- ✅ 여기가 디버깅용입니다 -->
+
     <Line :data="chartData" :options="chartOptions" class="mb-6" />
 
     <div class="max-h-64 overflow-y-auto border rounded shadow">

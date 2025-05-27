@@ -42,17 +42,26 @@ onMounted(() => {
     |
     <RouterLink :to="{ name: 'Compare' }" class="nav">지수 비교</RouterLink>
     <!-- ✅ 추가 -->
-     | 
-    <RouterLink :to="{name:'Search'}">Search</RouterLink>
-     | 
-    <RouterLink :to="{name:'Later'}">Later</RouterLink>
+    |
+    <RouterLink :to="{ name: 'Search' }">Search</RouterLink>
+    |
+    <RouterLink :to="{ name: 'Later' }">Later</RouterLink>
   </nav>
   <NavBar />
   <RouterView />
 </template>
 
-<style scoped>
-.nav {
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+a {
   text-decoration: none;
+  color: #333;
+}
+a:hover {
+  color: #fdc200;
 }
 </style>
