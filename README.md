@@ -72,8 +72,6 @@
 
 > 📌 ERD
 ![erd](https://github.com/user-attachments/assets/c1360fea-cbd0-4158-b559-405823ca805a)
-.png)
-> )
 
 ## III. 데이터베이스 모델링(ERD)
 
