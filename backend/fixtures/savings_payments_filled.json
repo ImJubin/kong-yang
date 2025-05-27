@@ -1,0 +1,202 @@
+[
+  {
+    "model": "users.savingspayment",
+    "pk": 1,
+    "fields": {
+      "savings_detail": 1,
+      "round_number": 1,
+      "paid_at": "2025-05-26",
+      "amount": "200000.00"
+    }
+  },
+  {
+    "model": "users.savingspayment",
+    "pk": 2,
+    "fields": {
+      "savings_detail": 1,
+      "round_number": 2,
+      "paid_at": "2025-06-25",
+      "amount": "200000.00"
+    }
+  },
+  {
+    "model": "users.savingspayment",
+    "pk": 3,
+    "fields": {
+      "savings_detail": 1,
+      "round_number": 3,
+      "paid_at": "2025-07-25",
+      "amount": "200000.00"
+    }
+  },
+  {
+    "model": "users.savingspayment",
+    "pk": 4,
+    "fields": {
+      "savings_detail": 1,
+      "round_number": 4,
+      "paid_at": "2025-08-24",
+      "amount": "200000.00"
+    }
+  },
+  {
+    "model": "users.savingspayment",
+    "pk": 5,
+    "fields": {
+      "savings_detail": 2,
+      "round_number": 1,
+      "paid_at": "2025-06-01",
+      "amount": "200000.00"
+    }
+  },
+  {
+    "model": "users.savingspayment",
+    "pk": 6,
+    "fields": {
+      "savings_detail": 2,
+      "round_number": 2,
+      "paid_at": "2025-06-30",
+      "amount": "200000.00"
+    }
+  },
+  {
+    "model": "users.savingspayment",
+    "pk": 7,
+    "fields": {
+      "savings_detail": 2,
+      "round_number": 3,
+      "paid_at": "2025-08-04",
+      "amount": "200000.00"
+    }
+  },
+  {
+    "model": "users.savingspayment",
+    "pk": 8,
+    "fields": {
+      "savings_detail": 2,
+      "round_number": 4,
+      "paid_at": "2025-09-02",
+      "amount": "200000.00"
+    }
+  },
+  {
+    "model": "users.savingspayment",
+    "pk": 9,
+    "fields": {
+      "savings_detail": 3,
+      "round_number": 1,
+      "paid_at": "2025-06-02",
+      "amount": "200000.00"
+    }
+  },
+  {
+    "model": "users.savingspayment",
+    "pk": 10,
+    "fields": {
+      "savings_detail": 3,
+      "round_number": 2,
+      "paid_at": "2025-07-05",
+      "amount": "200000.00"
+    }
+  },
+  {
+    "model": "users.savingspayment",
+    "pk": 11,
+    "fields": {
+      "savings_detail": 3,
+      "round_number": 3,
+      "paid_at": "2025-08-02",
+      "amount": "200000.00"
+    }
+  },
+  {
+    "model": "users.savingspayment",
+    "pk": 12,
+    "fields": {
+      "savings_detail": 3,
+      "round_number": 4,
+      "paid_at": "2025-09-01",
+      "amount": "200000.00"
+    }
+  },
+  {
+    "model": "users.savingspayment",
+    "pk": 13,
+    "fields": {
+      "savings_detail": 4,
+      "round_number": 1,
+      "paid_at": "2025-05-26",
+      "amount": "200000.00"
+    }
+  },
+  {
+    "model": "users.savingspayment",
+    "pk": 14,
+    "fields": {
+      "savings_detail": 4,
+      "round_number": 2,
+      "paid_at": "2025-06-25",
+      "amount": "200000.00"
+    }
+  },
+  {
+    "model": "users.savingspayment",
+    "pk": 15,
+    "fields": {
+      "savings_detail": 4,
+      "round_number": 3,
+      "paid_at": "2025-07-25",
+      "amount": "200000.00"
+    }
+  },
+  {
+    "model": "users.savingspayment",
+    "pk": 16,
+    "fields": {
+      "savings_detail": 4,
+      "round_number": 4,
+      "paid_at": "2025-08-24",
+      "amount": "200000.00"
+    }
+  },
+  {
+    "model": "users.savingspayment",
+    "pk": 17,
+    "fields": {
+      "savings_detail": 5,
+      "round_number": 1,
+      "paid_at": "2025-05-26",
+      "amount": "200000.00"
+    }
+  },
+  {
+    "model": "users.savingspayment",
+    "pk": 18,
+    "fields": {
+      "savings_detail": 5,
+      "round_number": 2,
+      "paid_at": "2025-06-25",
+      "amount": "200000.00"
+    }
+  },
+  {
+    "model": "users.savingspayment",
+    "pk": 19,
+    "fields": {
+      "savings_detail": 5,
+      "round_number": 3,
+      "paid_at": "2025-07-25",
+      "amount": "200000.00"
+    }
+  },
+  {
+    "model": "users.savingspayment",
+    "pk": 20,
+    "fields": {
+      "savings_detail": 5,
+      "round_number": 4,
+      "paid_at": "2025-08-24",
+      "amount": "200000.00"
+    }
+  }
+]

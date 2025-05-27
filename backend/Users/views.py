@@ -71,9 +71,9 @@ from rest_framework.decorators import authentication_classes
 
 
 
-@api_view(['GET'])
+@api_view(['GET','POST'])
 @authentication_classes([TokenAuthentication])
-def user_accounts(request):
+def user_accounts_interest(request):
     user = request.user
     accounts = Account.objects.filter(user_id=user)
 

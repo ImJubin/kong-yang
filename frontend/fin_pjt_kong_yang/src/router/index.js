@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import MyHomeView from "@/views/MyHomeView.vue";
 import SignUpView from "@/views/SignUpView.vue";
 import LoginView from "@/views/LoginView.vue";
 import MyPageView from "@/views/MyPageView.vue";
@@ -13,6 +14,7 @@ import ProductDetailView from '@/views/ProductDetailView.vue'
 import SearchView from '@/views/SearchView.vue'
 import VideoDetailView from '@/views/VideoDetailView.vue'
 import LaterView from '@/views/LaterView.vue'
+import LandingPageView from "@/views/LandingPageView.vue";
 
 // ✅ 로그인된 사용자가 회원가입 페이지에 접근하지 못하도록
 const requireNotLoggedIn = (to, from, next) => {
@@ -38,8 +40,14 @@ const router = createRouter({
   routes: [
     {
       path: "/",
+      name: "LandingPage",
+      component: LandingPageView,
+    },
+        {
+      path: "/home",
       name: "Home",
-      component: HomeView,
+      component: LandingPageView,
+      // component: MyHomeView,
     },
     {
       path: "/about",
@@ -77,20 +85,20 @@ const router = createRouter({
       path: "/product",
       name: "ProductPage",
       component: ProductPageView,
-      beforeEnter: requireLoggedIn,
+      // beforeEnter: requireLoggedIn,
     },
     {
       path: "/product/:type/:id",
       name: "ProductDetail",
       component: ProductDetailView,
       props: true,
-      beforeEnter: requireLoggedIn,
+      // beforeEnter: requireLoggedIn,
     },
     {
       path: "/",
       name: "bankFinder",
       component: BankFinderView,
-      beforeEnter: requireLoggedIn,
+      // beforeEnter: requireLoggedIn,
     },
     {
       path: "/create",
@@ -122,9 +130,22 @@ const router = createRouter({
       name: "Compare",
       component: () => import("@/views/CompareView.vue"),
     },
-      { path: '/search', name: 'Search', component: SearchView },
-      { path: '/video/:videoId', name: 'VideoDetail', component: VideoDetailView, props: true },
-      { path: '/Later', name: 'Later', component: LaterView },
+      { 
+        path: '/search', 
+        name: 'Search', 
+        component: SearchView
+      },
+      { 
+        path: '/video/:videoId', 
+        name: 'VideoDetail', 
+        component: VideoDetailView, 
+        props: true 
+      },
+      { path: '/Later', 
+        name: 'Later', 
+        component: LaterView,
+        beforeEnter: requireLoggedIn, 
+      },
     ],
 })
 

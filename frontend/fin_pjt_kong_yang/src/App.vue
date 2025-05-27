@@ -15,53 +15,77 @@ onMounted(() => {
     console.log("❌ 토큰 없음");
   }
 });
+import LandingPage from '@/views/LandingPageView.vue'
 </script>
 
 <template>
-  <nav>
-    <!-- <RouterLink to="/">홈</RouterLink> | -->
-
-    <RouterLink :to="{ name: 'Home' }" class="nav">홈</RouterLink>
-    |
-
-    <RouterLink :to="{ name: 'SignUp' }" class="nav">회원가입</RouterLink>
-    |
-    <RouterLink :to="{ name: 'Login' }" class="nav">로그인</RouterLink>
-    |
-    <RouterLink :to="{ name: 'MyPage' }" class="nav">마이페이지</RouterLink>
-    |
-    <RouterLink :to="{ name: 'UpdateMyData' }" class="nav"
-      >회원정보 수정</RouterLink
-    >
-    |
-    <RouterLink :to="{ name: 'ProductPage' }" class="nav">상품 조회</RouterLink>
-    |
-    <RouterLink :to="{ name: 'bankFinder' }" class="nav"
-      >은행 위치 조회</RouterLink
-    >
-    |
-    <RouterLink :to="{ name: 'Compare' }" class="nav">지수 비교</RouterLink>
-    <!-- ✅ 추가 -->
-    |
-    <RouterLink :to="{ name: 'Search' }">Search</RouterLink>
-    |
-    <RouterLink :to="{ name: 'Later' }">Later</RouterLink>
-  </nav>
   <NavBar />
   <RouterView />
 </template>
 
+
 <style>
-* {
-  margin: 0;
-  padding: 0;
+  /* .nav-bar{
+      position:fixed;
+  } */
+*{
+  margin:0;
+  padding:0;
   box-sizing: border-box;
+  font-family: 'Noto Sans KR', sans-serif;
 }
-a {
+.text-yellow{
+  color:#FDC200;
+}
+a{
   text-decoration: none;
-  color: #333;
+  color:#333;
 }
-a:hover {
-  color: #fdc200;
+a:hover{
+  color:#FDC200;
 }
+
+
 </style>
+<style scoped>
+*{
+  /* border:1px dashed red; */
+  
+}
+
+
+</style>
+
+
+
+
+<!-- <nav> -->
+  <!-- <RouterLink to="/">홈</RouterLink> | -->
+
+
+  <!-- <RouterLink :to="{ name: 'Home' }" class="nav">홈</RouterLink> -->
+  <!-- | -->
+
+  <!-- <RouterLink :to="{ name: 'SignUp' }" class="nav">회원가입</RouterLink>
+  |
+  <RouterLink :to="{ name: 'Login' }" class="nav">로그인</RouterLink>
+  |
+  <RouterLink :to="{ name: 'MyPage' }" class="nav">마이페이지</RouterLink>
+  |
+  <RouterLink :to="{ name: 'UpdateMyData' }" class="nav"
+    >회원정보 수정</RouterLink
+  >
+  |
+  <RouterLink :to="{ name: 'ProductPage' }" class="nav">상품 조회</RouterLink>
+  |
+  <RouterLink :to="{ name: 'bankFinder' }" class="nav">은행 위치 조회</RouterLink>
+  |
+  <RouterLink :to="{ name: 'Compare' }" class="nav">지수 비교</RouterLink> -->
+  <!-- ✅ 추가 -->
+   <!-- |  -->
+  <!-- <RouterLink :to="{name:'Search'}">Search</RouterLink>
+   | 
+  <RouterLink :to="{name:'Later'}">Later</RouterLink>
+  
+</nav> -->
+<!-- <NavBar /> -->
